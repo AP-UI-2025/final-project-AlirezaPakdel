@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="1948.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.plantvszombies.Controller.HelloController">
+   <children>
+      <ImageView fitHeight="1536.0" fitWidth="1948.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/TITLESCREEN_IPAD_HD.PNG.png" />
+         </image>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
+      <TextField fx:id="UserName" layoutX="783.0" layoutY="145.0" prefHeight="47.0" prefWidth="397.0" promptText="UserName :">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="PassWord" layoutX="785.0" layoutY="230.0" prefHeight="47.0" prefWidth="397.0" promptText="PassWord :">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </TextField>
+      <Button layoutX="789.0" layoutY="336.0" mnemonicParsing="false" onAction="#Login" prefHeight="52.0" prefWidth="122.0" style="-fx-background-radius: 20; -fx-background-color: #ffe100;" text="LogIn">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <Button layoutX="1051.0" layoutY="339.0" mnemonicParsing="false" onAction="#SignUp" prefHeight="52.0" prefWidth="122.0" style="-fx-background-radius: 20; -fx-background-color: #699481;" text="SignUp">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
