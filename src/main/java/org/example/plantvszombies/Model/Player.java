@@ -7,6 +7,8 @@ import java.util.List;
 public class Player {
     private String userName;
     private String password;
+    private int win;
+    private int loss;
     private int level;
     private int plants;
 
@@ -15,8 +17,8 @@ public class Player {
         this.password = password;
         this.level = level;
         this.plants = plants;
-
-
+        this.win = 0;
+        this.loss = 0;
     }
     public String getUserName() {
         return userName;
@@ -29,6 +31,22 @@ public class Player {
     }
     public int getPlants() {
         return plants;
+    }
+
+    public int getWin() {
+        return win;
+    }
+
+    public void setWin(int win) {
+        this.win = win;
+    }
+
+    public int getLoss() {
+        return loss;
+    }
+
+    public void setLoss(int loss) {
+        this.loss = loss;
     }
 
     public void setUserName(String userName) {
