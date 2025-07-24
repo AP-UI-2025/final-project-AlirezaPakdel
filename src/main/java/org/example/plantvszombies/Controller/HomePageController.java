@@ -18,6 +18,8 @@ import org.example.plantvszombies.Model.Player;
 
 public class HomePageController {
 
+    @FXML
+    private ImageView isNightModeUnlock;
 
     @FXML
     private ResourceBundle resources;
@@ -66,6 +68,9 @@ public class HomePageController {
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
 
+        if (HelloController.logInPlayer.getLevel()>2){
+            isNightModeUnlock.setVisible(false);
+        }
 
 
         assert DayMode != null : "fx:id=\"DayMode\" was not injected: check your FXML file 'HomePageView.fxml'.";
