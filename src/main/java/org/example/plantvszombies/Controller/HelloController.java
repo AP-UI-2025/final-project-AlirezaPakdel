@@ -68,6 +68,7 @@ public class HelloController {
 
     @FXML
     void initialize() {
+        MusicPlayer.getInstance().play();
 
 
         System.out.println(" JavaFX Runtime: " + System.getProperty("javafx.runtime.version"));

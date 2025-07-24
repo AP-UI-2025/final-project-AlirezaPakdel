@@ -72,12 +72,12 @@ public class HomePageController {
     @FXML
     void initialize() {
 
-        String musicPath = getClass().getResource("/music/Moongrains.mp3").toExternalForm();
+        /*String musicPath = getClass().getResource("/music/Moongrains.mp3").toExternalForm();
         Media backgroundMusic = new Media(musicPath);
         MediaPlayer mediaPlayer = new MediaPlayer(backgroundMusic);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
-
+*/
         if (HelloController.logInPlayer.getLevel()>2){
             isNightModeUnlock.setVisible(false);
         }
