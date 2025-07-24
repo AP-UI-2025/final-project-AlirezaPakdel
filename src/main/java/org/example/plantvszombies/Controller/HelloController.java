@@ -1,11 +1,21 @@
 package org.example.plantvszombies.Controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
+import org.example.plantvszombies.HelloApplication;
+
+import javax.swing.*;
 
 public class HelloController {
 
@@ -22,13 +32,19 @@ public class HelloController {
     private TextField UserName;
 
     @FXML
-    void Login(ActionEvent event) {
+    void Login(ActionEvent event) throws IOException {
        if (PlayerController.LogIn( UserName.getText() , PassWord.getText())!=null){
            Alert alert = new Alert(Alert.AlertType.INFORMATION);
            alert.setTitle("Login");
            alert.setHeaderText(null);
            alert.setContentText("You have successfully logged in");
            alert.showAndWait();
+
+           FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("HomePageView.fxml"));
+           Scene scene = new Scene(loader.load());
+           Stage stage = (Stage) UserName.getScene().getWindow();
+           stage.setScene(scene);
+           stage.show();
        }else{
            Alert alert = new Alert(Alert.AlertType.ERROR);
            alert.setTitle("Login");
@@ -45,6 +61,8 @@ public class HelloController {
 
     @FXML
     void initialize() {
+
+
         System.out.println(" JavaFX Runtime: " + System.getProperty("javafx.runtime.version"));
         assert PassWord != null : "fx:id=\"PassWord\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert UserName != null : "fx:id=\"UserName\" was not injected: check your FXML file 'hello-view.fxml'.";

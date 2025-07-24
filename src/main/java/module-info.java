@@ -1,7 +1,9 @@
 module org.example.plantvszombies {
     requires javafx.controls;
+    requires javafx.media;
     requires javafx.fxml;
     requires java.sql;
+    requires java.desktop;
 
 
     opens org.example.plantvszombies to javafx.fxml;
