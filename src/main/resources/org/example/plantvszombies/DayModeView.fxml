@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.plantvszombies.Controller.DayModeController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1263.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/DayShit.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="BackBtn" fitHeight="68.0" fitWidth="92.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#GoBack" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/Check2.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="34.0" layoutY="71.0" prefHeight="26.0" prefWidth="44.0" text="Back">
+         <font>
+            <Font name="Franklin Gothic Heavy" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

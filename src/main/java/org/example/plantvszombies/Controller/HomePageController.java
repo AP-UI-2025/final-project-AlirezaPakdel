@@ -40,13 +40,23 @@ public class HomePageController {
     private ImageView Seting;
 
     @FXML
-    void GoToDayMode(MouseEvent event) {
-
+    void GoToDayMode(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("DayModeView.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) DayMode.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
-    void GoToNightMode(MouseEvent event) {
-
+    void GoToNightMode(MouseEvent event) throws IOException {
+        if (HelloController.logInPlayer.getLevel()>2) {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("NightModeView.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) DayMode.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     @FXML
