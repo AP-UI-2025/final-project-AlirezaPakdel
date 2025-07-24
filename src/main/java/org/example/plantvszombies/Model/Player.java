@@ -12,13 +12,13 @@ public class Player {
     private int level;
     private int plants;
 
-    public Player(String userName, String password , int level , int plants) {
+    public Player(String userName, String password , int level , int plants , int win, int loss) {
         this.userName = userName;
         this.password = password;
         this.level = level;
         this.plants = plants;
-        this.win = 0;
-        this.loss = 0;
+        this.win = win;
+        this.loss = loss;
     }
     public String getUserName() {
         return userName;

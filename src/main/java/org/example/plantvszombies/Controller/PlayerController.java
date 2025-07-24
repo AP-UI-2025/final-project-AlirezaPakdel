@@ -43,7 +43,7 @@ public class PlayerController {
                 return;
             }
         }
-        Player newPlayer = new Player(username , password , 0 , 0);
+        Player newPlayer = new Player(username , password , 0 , 0 , 0 , 0 );
         savePlayers(newPlayer);
         getPlayerController().setAllPlayers(loadPlayers());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -69,7 +69,9 @@ public class PlayerController {
                 String Password = rs.getString("Password");
                 int Level = rs.getInt("Level");
                 int Plants = rs.getInt("Plants");
-                players.add(new Player(UserName , Password , Level , Plants ));
+                int win = rs.getInt("win");
+                int loss = rs.getInt("loss");
+                players.add(new Player(UserName , Password , Level , Plants ,win , loss));
             }
         } catch (Exception e) {
             throw new RuntimeException();

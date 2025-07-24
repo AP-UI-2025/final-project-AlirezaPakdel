@@ -1,18 +1,23 @@
 package org.example.plantvszombies.Controller;
 
-import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
+import javafx.stage.Stage;
+import org.example.plantvszombies.HelloApplication;
+import org.example.plantvszombies.Model.Player;
 
 
 public class HomePageController {
+
 
     @FXML
     private ResourceBundle resources;
@@ -43,7 +48,7 @@ public class HomePageController {
     }
 
     @FXML
-    void GoToSeting(MouseEvent event) {
+    void GoToSetting(MouseEvent event) {
 
     }
 
@@ -70,4 +75,12 @@ public class HomePageController {
 
     }
 
+    public void LogOut(MouseEvent mouseEvent) throws IOException {
+        HelloController.logInPlayer=null;
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) DayMode.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 }
