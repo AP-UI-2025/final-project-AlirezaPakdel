@@ -6,7 +6,7 @@ import javafx.scene.media.MediaPlayer;
 public class MusicPlayer {
     private static MusicPlayer instance;
     private MediaPlayer mediaPlayer;
-
+    public static boolean isOn;
     private MusicPlayer() {
         String musicPath = getClass().getResource("/music/Moongrains.mp3").toExternalForm();
         Media media = new Media(musicPath);
@@ -23,12 +23,14 @@ public class MusicPlayer {
 
     public void play() {
         if (mediaPlayer != null) {
+            isOn = true;
             mediaPlayer.play();
         }
     }
 
     public void stop() {
         if (mediaPlayer != null) {
+            isOn = false;
             mediaPlayer.stop();
         }
     }

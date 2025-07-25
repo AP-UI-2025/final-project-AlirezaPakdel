@@ -60,8 +60,12 @@ public class HomePageController {
     }
 
     @FXML
-    void GoToSetting(MouseEvent event) {
-
+    void GoToSetting(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("SettingView.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) Info.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
