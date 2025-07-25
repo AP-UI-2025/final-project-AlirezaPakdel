@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -23,6 +24,46 @@
          <font>
             <Font name="Franklin Gothic Heavy" size="16.0" />
          </font>
+      </Label>
+      <Label fx:id="mission1" layoutX="454.0" layoutY="119.0" onMouseClicked="#mission1" text="mission 1" textFill="#d3a135" wrapText="true">
+         <font>
+            <Font name="Ink Free" size="74.0" />
+         </font>
+         <effect>
+            <Bloom threshold="0.0" />
+         </effect>
+      </Label>
+      <Label fx:id="mission2On" layoutX="454.0" layoutY="220.0" onMouseClicked="#mission2" text="mission 2" textFill="#dbb44d" wrapText="true">
+         <font>
+            <Font name="Ink Free" size="74.0" />
+         </font>
+         <effect>
+            <Bloom threshold="0.0" />
+         </effect>
+      </Label>
+      <Label fx:id="mission3On" layoutX="454.0" layoutY="321.0" onMouseClicked="#mission3" text="mission 3" textFill="#d3a135" wrapText="true">
+         <font>
+            <Font name="Ink Free" size="74.0" />
+         </font>
+         <effect>
+            <Bloom threshold="0.0" />
+         </effect>
+      </Label>
+      <Label fx:id="mission2off" layoutX="454.0" layoutY="220.0" text="mission 2" textFill="#171510" wrapText="true">
+         <font>
+            <Font name="Ink Free" size="74.0" />
+         </font>
+         <effect>
+            <Bloom threshold="0.0" />
+         </effect>
+      </Label>
+      <Label fx:id="mission3Off" layoutX="454.0" layoutY="321.0" text="mission 3" textFill="#070707" wrapText="true">
+         <font>
+            <Font name="Ink Free" size="74.0" />
+         </font>
+         <effect>
+            <Bloom threshold="0.0" />
+         </effect>
       </Label>
    </children>
 </AnchorPane>
