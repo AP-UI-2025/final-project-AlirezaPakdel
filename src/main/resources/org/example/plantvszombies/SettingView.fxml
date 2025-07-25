@@ -55,5 +55,15 @@
       <TextField fx:id="testTxt" layoutX="66.0" layoutY="596.0" prefHeight="25.0" prefWidth="261.0" />
       <Button layoutX="77.0" layoutY="641.0" mnemonicParsing="false" onMouseClicked="#EditUserName" text="Edit UserName" />
       <Button layoutX="219.0" layoutY="641.0" mnemonicParsing="false" onMouseClicked="#EditPassWord" prefHeight="25.0" prefWidth="95.0" text="Edit PassWord" />
+      <ImageView fx:id="BackBtn" fitHeight="68.0" fitWidth="92.0" layoutX="1101.0" layoutY="687.0" onMouseClicked="#GoBack" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/Check2.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="1121.0" layoutY="744.0" prefHeight="26.0" prefWidth="44.0" text="Back">
+         <font>
+            <Font name="Franklin Gothic Heavy" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

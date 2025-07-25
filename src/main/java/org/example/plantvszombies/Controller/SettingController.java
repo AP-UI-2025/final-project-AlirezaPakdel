@@ -1,12 +1,17 @@
 package org.example.plantvszombies.Controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import org.example.plantvszombies.HelloApplication;
 
 public class SettingController {
 
@@ -39,12 +44,16 @@ public class SettingController {
 
     @FXML
     void EditPassWord(MouseEvent event) {
-
+        PlayerController.updatePassword(HelloController.logInPlayer.getUserName(), testTxt.getText());
+        HelloController.logInPlayer = PlayerController.LogIn(HelloController.logInPlayer.getUserName(), testTxt.getText());
+        password.setText("PassWord : "+HelloController.logInPlayer.getPassword());
     }
 
     @FXML
     void EditUserName(MouseEvent event) {
-
+        PlayerController.updateUsername(HelloController.logInPlayer.getUserName(), testTxt.getText());
+        HelloController.logInPlayer = PlayerController.LogIn(testTxt.getText() , HelloController.logInPlayer.getPassword());
+        userName.setText("UserName : "+HelloController.logInPlayer.getUserName());
     }
 
     @FXML
@@ -80,4 +89,11 @@ public class SettingController {
 
     }
 
+    public void GoBack(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("HomePageView.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) win.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 }

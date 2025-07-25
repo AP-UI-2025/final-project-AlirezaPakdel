@@ -24,6 +24,7 @@ public class PlayerController {
     private ArrayList<Player> allPlayers;
 
     public static Player LogIn(String username, String password) {
+        getPlayerController().allPlayers=loadPlayers();
         for (Player player : getPlayerController().allPlayers){
             if (player.getUserName().equals(username) && player.getPassword().equals(password)) {
                 return player;
@@ -33,6 +34,7 @@ public class PlayerController {
     }
 
     public static void SignUp(String username, String password ) {
+        getPlayerController().allPlayers=loadPlayers();
         for (Player player : getPlayerController().allPlayers){
             if (player.getUserName().equals(username)) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -97,6 +99,47 @@ public class PlayerController {
 
 
     }
+
+    public static void updateUsername(String oldUsername, String newUsername) {
+        try {
+            String URL = "jdbc:mysql://localhost/plantsvszomies";
+            String USER = "root";
+            String PASSWORD = "";
+            Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
+
+            Statement stmt = con.createStatement();
+            String sql = "UPDATE players SET UserName = '" + newUsername + "' WHERE UserName = '" + oldUsername + "'";
+            stmt.executeUpdate(sql);
+
+            stmt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void updatePassword(String username, String newPassword) {
+        try {
+            String URL = "jdbc:mysql://localhost/plantsvszomies";
+            String USER = "root";
+            String PASSWORD = "";
+            Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
+
+            Statement stmt = con.createStatement();
+            String sql = "UPDATE players SET Password = '" + newPassword + "' WHERE UserName = '" + username + "'";
+            stmt.executeUpdate(sql);
+
+
+            stmt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     public ArrayList<Player> getAllPlayers() {
         return loadPlayers();
