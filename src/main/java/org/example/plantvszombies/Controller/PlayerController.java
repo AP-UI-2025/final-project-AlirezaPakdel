@@ -83,22 +83,24 @@ public class PlayerController {
 
     }
 
-    public static void savePlayers(Player player)  {
+    public static void savePlayers(Player player) {
         try {
             String URL = "jdbc:mysql://localhost/plantsvszomies";
             String USER = "root";
             String PASSWORD = "";
             Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
             Statement stmt = con.createStatement();
-            String SQLCom = String.format("INSERT INTO players (UserName , Password , Level , Plants) VALUES ('%s' , '%s' , '%s' , '%s')", player.getUserName(), player.getPassword(), player.getLevel(), player.getPlants());
-            stmt = con.prepareStatement(SQLCom);
-            stmt.execute(SQLCom);
+
+            String SQLCom = String.format("INSERT INTO players (UserName, Password, Level, Plants, win, loss) VALUES ('%s', '%s', %d, %d, %d, %d)", player.getUserName(), player.getPassword(), player.getLevel(), player.getPlants(), player.getWin(), player.getLoss());
+
+            stmt.executeUpdate(SQLCom);
+            stmt.close();
+            con.close();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
-
-
     }
+
 
     public static void updateUsername(String oldUsername, String newUsername) {
         try {
