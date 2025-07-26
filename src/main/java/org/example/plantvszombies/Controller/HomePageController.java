@@ -69,8 +69,12 @@ public class HomePageController {
     }
 
     @FXML
-    void GoToUserInformation(MouseEvent event) {
-
+    void GoToUserInformation(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("ScoreBoardView.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) Info.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

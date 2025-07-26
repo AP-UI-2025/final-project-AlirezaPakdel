@@ -11,6 +11,7 @@ public class Player {
     private int loss;
     private int level;
     private int plants;
+    private int score;
 
     public Player(String userName, String password , int level , int plants , int win, int loss) {
         this.userName = userName;
@@ -19,6 +20,7 @@ public class Player {
         this.plants = plants;
         this.win = win;
         this.loss = loss;
+        this.score = win*3 - loss;
     }
     public String getUserName() {
         return userName;
@@ -31,6 +33,14 @@ public class Player {
     }
     public int getPlants() {
         return plants;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public int getWin() {
@@ -64,6 +74,12 @@ public class Player {
     public void setPlants(int plants) {
         this.plants = plants;
     }
+
+    @Override
+    public String toString() {
+        return "UserName : " + getUserName() +  " win : " + getLevel() + "Loss : " + getLoss() +  " Score : " + getScore()  ;
+    }
+
 
    /* public String toFileFormat() {
         return userName + "," + password + "," + level + "," + plants;

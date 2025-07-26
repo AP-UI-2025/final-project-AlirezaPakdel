@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.plantvszombies.Controller.SettingController">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1557.0" pickOnBounds="true" preserveRatio="true">
@@ -27,27 +26,27 @@
             </CheckBox>
             <Label fx:id="userName" text="Label">
                <font>
-                  <Font size="30.0" />
+                  <Font name="Ink Free" size="30.0" />
                </font>
             </Label>
             <Label fx:id="password" text="Label">
                <font>
-                  <Font size="30.0" />
+                  <Font name="Ink Free" size="30.0" />
                </font>
             </Label>
             <Label fx:id="win" text="Label">
                <font>
-                  <Font size="30.0" />
+                  <Font name="Ink Free" size="30.0" />
                </font>
             </Label>
             <Label fx:id="loss" text="Label">
                <font>
-                  <Font size="30.0" />
+                  <Font name="Ink Free" size="30.0" />
                </font>
             </Label>
             <Label fx:id="score" text="Label">
                <font>
-                  <Font size="30.0" />
+                  <Font name="Ink Free" size="30.0" />
                </font>
             </Label>
          </children>
