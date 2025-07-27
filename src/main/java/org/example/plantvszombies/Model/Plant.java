@@ -5,7 +5,6 @@ public class Plant {
     private String plantName;
     private final int solarCost;
 
-
     public Plant(int solarCost, String plantName) {
         this.solarCost = solarCost;
         this.plantName = plantName;
