@@ -1,6 +1,7 @@
 package org.example.plantvszombies.Model;
 
 import javafx.scene.image.ImageView;
+import org.example.plantvszombies.Model.Game.GameRoot;
 
 public class ProductionPlant extends Plant{
     private int productionTime;
@@ -16,8 +17,10 @@ public class ProductionPlant extends Plant{
 
 
     protected void produce() {
+        Sun sun = new Sun(getRow(), getCol());
 
-        System.out.println(getPlantName() + " produced sun at (" + getRow() + "," + getCol() + ")");
+        GameRoot.getInstance().getGamePane().getChildren().add(sun.getImageView());
+        sun.playDropAnimation();
     }
 
 
