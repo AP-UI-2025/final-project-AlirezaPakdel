@@ -7,7 +7,6 @@ public class ProductionPlant extends Plant{
     private int productionTime;
     private int destructionRate;
     private ImageView imageView;
-    private int row, col;
 
     public ProductionPlant(int solarCost, String plantName , int productionTime, int destructionRate) {
         super(solarCost, plantName);
@@ -34,21 +33,7 @@ public class ProductionPlant extends Plant{
         this.imageView = imageView;
     }
 
-    public int getRow() {
-        return row;
-    }
 
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
-    public void setCol(int col) {
-        this.col = col;
-    }
 
     public int getProductionTime() {
         return productionTime;

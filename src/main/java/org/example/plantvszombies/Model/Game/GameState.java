@@ -1,14 +1,40 @@
 package org.example.plantvszombies.Model.Game;
 
+import javafx.scene.image.ImageView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class GameState {
-    private static final GameState instance = new GameState();
+    private static GameState instance ;
 
     private int sunPoints = 50;
+    private List<ImageView> zombies = new ArrayList<>();
+    private List<ImageView> plants = new ArrayList<>();
+    private Map<ImageView, Integer> plantsHealth = new HashMap<>();
+    private Map<ImageView, Integer> zombiesHealth = new HashMap<>();
 
     private GameState() {}
 
     public static GameState getInstance() {
+        if (instance == null) {
+            instance = new GameState();
+        }
         return instance;
+    }
+
+    public List<ImageView> getPlants() {
+        return plants;
+    }
+
+    public List<ImageView> getZombies() {
+        return zombies;
+    }
+
+    public void setZombies(List<ImageView> zombies) {
+        this.zombies = zombies;
     }
 
     public int getSunPoints() {
@@ -28,6 +54,22 @@ public class GameState {
             return true;
         }
         return false;
+    }
+
+    public Map<ImageView, Integer> getPlantsHealth() {
+        return plantsHealth;
+    }
+
+    public void setPlantsHealth(Map<ImageView, Integer> plantsHealth) {
+        this.plantsHealth = plantsHealth;
+    }
+
+    public Map<ImageView, Integer> getZombiesHealth() {
+        return zombiesHealth;
+    }
+
+    public void setZombiesHealth(Map<ImageView, Integer> zombiesHealth) {
+        this.zombiesHealth = zombiesHealth;
     }
 }
 
