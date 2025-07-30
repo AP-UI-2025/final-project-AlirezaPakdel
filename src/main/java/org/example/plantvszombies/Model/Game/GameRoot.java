@@ -16,6 +16,10 @@ public class GameRoot {
         return instance;
     }
 
+    public static void setInstance(){
+        instance = new GameRoot();
+    }
+
     public void setGamePane(Pane pane) {
         this.gamePane = pane;
     }

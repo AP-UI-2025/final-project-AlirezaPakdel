@@ -24,6 +24,9 @@ public class GameState {
         }
         return instance;
     }
+    public static void setInstance(){
+        instance = new GameState();
+    }
 
     public List<ImageView> getPlants() {
         return plants;

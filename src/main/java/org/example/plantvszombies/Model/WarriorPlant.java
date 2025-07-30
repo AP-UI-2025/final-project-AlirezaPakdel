@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import org.example.plantvszombies.Model.Game.GameRoot;
 import org.example.plantvszombies.Model.Game.GameState;
+import org.example.plantvszombies.Model.Game.TimelineManager;
 
 public class WarriorPlant extends Plant {
     private int attackPower;

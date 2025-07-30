@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import org.example.plantvszombies.Model.ProductionPlant;
-import org.example.plantvszombies.Model.TimelineManager;
+import org.example.plantvszombies.Model.Game.TimelineManager;
 
 public class SunFlower extends ProductionPlant {
     public SunFlower(int row, int col) {
