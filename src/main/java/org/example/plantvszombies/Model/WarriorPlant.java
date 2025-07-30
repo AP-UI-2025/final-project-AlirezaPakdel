@@ -13,6 +13,7 @@ public class WarriorPlant extends Plant {
     private int attackPower;
     private int attackSpeed;
     private BulletType bulletType;
+    private ImageView imageView;
 
     public WarriorPlant(int solarCost, String plantName , int attackPower , int attackSpeed , BulletType bulletType) {
         super(solarCost, plantName);
@@ -147,10 +148,13 @@ public class WarriorPlant extends Plant {
     }
 
 
+    public ImageView getImageView() {
+        return imageView;
+    }
 
-
-
-
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
 
     public int getAttackPower() {
         return attackPower;

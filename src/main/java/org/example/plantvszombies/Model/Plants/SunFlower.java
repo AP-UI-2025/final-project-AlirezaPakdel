@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import org.example.plantvszombies.Model.Game.GameState;
 import org.example.plantvszombies.Model.ProductionPlant;
 import org.example.plantvszombies.Model.Game.TimelineManager;
 
@@ -17,6 +18,8 @@ public class SunFlower extends ProductionPlant {
         imageView.setFitWidth(60);
         imageView.setPreserveRatio(true);
         super.setImageView(imageView);
+        GameState.getInstance().getPlants().add(imageView);
+        GameState.getInstance().getPlantsHealth().put(imageView, 5);
         setCol(col);
         setRow(row);
     }
