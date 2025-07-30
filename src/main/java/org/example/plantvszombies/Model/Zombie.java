@@ -1,9 +1,12 @@
 package org.example.plantvszombies.Model;
 
+import javafx.scene.image.ImageView;
+
 public class Zombie {
     private int health;
     private int speed;
     private int damage;
+    private ImageView imageView;
 
     public Zombie(int health, int speed, int damage) {
         this.health = health;
@@ -15,6 +18,13 @@ public class Zombie {
 
     public static void eatPlant(){}
 
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
 
     public int getHealth() {
         return health;

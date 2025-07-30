@@ -6,7 +6,6 @@ import org.example.plantvszombies.Model.Game.GameRoot;
 public class ProductionPlant extends Plant{
     private int productionTime;
     private int destructionRate;
-    private ImageView imageView;
 
     public ProductionPlant(int solarCost, String plantName , int productionTime, int destructionRate) {
         super(solarCost, plantName);
@@ -25,13 +24,7 @@ public class ProductionPlant extends Plant{
 
     public static void Production(){}
 
-    public ImageView getImageView() {
-        return imageView;
-    }
 
-    public void setImageView(ImageView imageView) {
-        this.imageView = imageView;
-    }
 
 
 

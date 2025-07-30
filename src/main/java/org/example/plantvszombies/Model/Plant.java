@@ -1,10 +1,13 @@
 package org.example.plantvszombies.Model;
 
+import javafx.scene.image.ImageView;
+
 public class Plant {
 
     private String plantName;
     private final int solarCost;
     private int row, col;
+    private ImageView imageView;
 
     public Plant(int solarCost, String plantName) {
         this.solarCost = solarCost;
@@ -17,6 +20,14 @@ public class Plant {
 
     public void setRow(int row) {
         this.row = row;
+    }
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
     }
 
     public int getCol() {
