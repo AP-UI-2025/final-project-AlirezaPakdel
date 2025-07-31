@@ -1,6 +1,7 @@
 package org.example.plantvszombies.Model.Game;
 
 import javafx.scene.image.ImageView;
+import org.example.plantvszombies.Model.Zombie;
 
 import java.util.ArrayList;
 import java.util.HashMap;

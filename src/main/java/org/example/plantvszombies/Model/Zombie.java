@@ -1,12 +1,20 @@
 package org.example.plantvszombies.Model;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
+import org.example.plantvszombies.Model.Game.GameRoot;
+import org.example.plantvszombies.Model.Game.GameState;
+import org.example.plantvszombies.Model.Game.TimelineManager;
 
 public class Zombie {
     private int health;
     private int speed;
     private int damage;
     private ImageView imageView;
+    private Timeline moveTimeline;
+
 
     public Zombie(int health, int speed, int damage) {
         this.health = health;
@@ -14,10 +22,60 @@ public class Zombie {
         this.damage = damage;
     }
 
-    public static void moveZombie() {}
+    public void startMoving(GameState gameState) {
+        moveTimeline = new Timeline(new KeyFrame(Duration.millis(100), e -> moveZombie(gameState)));
+        moveTimeline.setCycleCount(Timeline.INDEFINITE);
+        TimelineManager.getInstance().add(moveTimeline);
+        moveTimeline.play();
+    }
 
-    public static void eatPlant(){}
+    private void moveZombie(GameState gameState) {
+        if (GameState.getInstance().getZombiesHealth().get(imageView) <= 0) {
+            die();
+            return;
+        }
 
+        boolean isEating = false;
+        for (ImageView image : GameState.getInstance().getPlants()) {
+            if (imageView.getBoundsInParent().intersects(image.getBoundsInParent())) {
+                isEating = true;
+                moveTimeline.stop();
+                eatPlant(image);
+            }
+        }
+        if (!isEating) {
+            imageView.setLayoutX(imageView.getLayoutX() - speed);
+        }
+        if (imageView.getLayoutX() < 0) {
+            System.out.println("Zombie reached the house. Game Over!");
+            moveTimeline.stop();
+        }
+    }
+
+    private void eatPlant(ImageView plant) {
+            int newHP = GameState.getInstance().getPlantsHealth().get(plant) - damage;
+            GameState.getInstance().getPlantsHealth().put(plant, newHP);
+
+            if (newHP <= 0) {
+                GameState.getInstance().getPlantsHealth().remove(plant);
+                GameRoot.getInstance().getGamePane().getChildren().remove(plant);
+            }
+
+    }
+
+    public void takeDamage(int amount) {
+        health -= amount;
+        if (health <= 0) {
+            die();
+        }
+    }
+
+    public void die() {
+        GameRoot.getInstance().getGamePane().getChildren().remove(imageView);
+        GameState.getInstance().getZombiesHealth().remove(imageView);
+        TimelineManager.getInstance().getTimelines().remove(moveTimeline);
+        moveTimeline.stop();
+    }
     public ImageView getImageView() {
         return imageView;
     }
