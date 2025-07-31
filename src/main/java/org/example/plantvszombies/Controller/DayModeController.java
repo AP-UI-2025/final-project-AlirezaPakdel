@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.example.plantvszombies.HelloApplication;
+import org.example.plantvszombies.LevelOneApp;
 
 public class DayModeController {
 
@@ -66,7 +67,13 @@ public class DayModeController {
 
     }
 
-    public void mission1(MouseEvent mouseEvent) {
+    public void mission1(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("DayLevelOneView.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) BackBtn.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+
     }
 
     public void mission2(MouseEvent mouseEvent) {
