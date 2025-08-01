@@ -2,6 +2,9 @@ package org.example.plantvszombies.Model.Game;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,9 +14,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.example.plantvszombies.HelloApplication;
 import org.example.plantvszombies.Model.Plants.PeaShooter;
 import org.example.plantvszombies.Model.Plants.SunFlower;
+
+import java.io.IOException;
 
 public class GameRoot {
     public int getROWS() {
@@ -44,9 +51,7 @@ public class GameRoot {
 
     private Pane gamePane ;
 
-    private GameRoot() {
-
-    }
+    private GameRoot() {}
 
     public static GameRoot getInstance() {
         if (instance == null) {
@@ -85,6 +90,25 @@ public class GameRoot {
         sunLabel.setStyle("-fx-text-fill: yellow;");
         sunNum.getChildren().add(sunLabel);
         gamePane.getChildren().add(sunNum);
+
+        Button Back = new Button("Back");
+        Back.setLayoutX(1100);
+        Back.setLayoutY(700);
+        gamePane.getChildren().add(Back);
+        Back.setOnAction(e -> {
+            TimelineManager.getInstance().stopAll();
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("HomePageView.fxml"));
+            Scene scene;
+            try {
+                scene = new Scene(loader.load());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            Stage stage = (Stage) gamePane.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        });
+
 
 
     }
