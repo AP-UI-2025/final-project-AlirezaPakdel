@@ -35,7 +35,6 @@ public class PeaShooter extends WarriorPlant {
         Timeline shooter = new Timeline(new KeyFrame(Duration.seconds(1.5), event -> {
             boolean zombieInRow = false;
             for (ImageView zombie : GameState.getInstance().getZombies()) {
-                System.out.println("zombie y : " + zombie.getLayoutY() + " plant y : " + getRow());
                 if (Math.abs(zombie.getLayoutY()  - getRow()) <= 30) {
                     zombieInRow = true;
                     break;

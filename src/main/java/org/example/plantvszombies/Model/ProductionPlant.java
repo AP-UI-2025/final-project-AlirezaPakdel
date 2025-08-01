@@ -16,7 +16,6 @@ public class ProductionPlant extends Plant{
 
 
     public void produce() {
-        System.out.println("ProductionPlant produce");
         Sun sun = new Sun(getRow(), getCol());
 
 

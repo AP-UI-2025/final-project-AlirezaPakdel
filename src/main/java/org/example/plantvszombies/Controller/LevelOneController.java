@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.example.plantvszombies.Model.Game.GameRoot;
 import org.example.plantvszombies.Model.Game.GameState;
+import org.example.plantvszombies.Model.Game.TimelineManager;
 import org.example.plantvszombies.Model.Plants.PeaShooter;
 import org.example.plantvszombies.Model.Plants.SunFlower;
 import org.example.plantvszombies.Model.Zombies.NormalZombie;
@@ -167,7 +168,7 @@ public class LevelOneController implements Initializable {
 
 
     private void spawnZombies() {
-        Timeline spawner = new Timeline(new KeyFrame(Duration.seconds(5), e -> {
+        Timeline spawner = new Timeline(new KeyFrame(Duration.seconds(15), e -> {
             Random rand = new Random();
             int row = rand.nextInt(5);
             double startY = 200 + row * 100;
@@ -176,5 +177,6 @@ public class LevelOneController implements Initializable {
         }));
         spawner.setCycleCount(10);
         spawner.play();
+        TimelineManager.getInstance().getTimelines().add(spawner);
     }
 }

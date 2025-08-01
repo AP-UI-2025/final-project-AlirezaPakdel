@@ -52,9 +52,9 @@ public class Zombie {
             imageView.setLayoutX(imageView.getLayoutX() - speed);
         }
 
-        if (imageView.getX() < 0) {
-            System.out.println("Zombie reached the house. Game Over!");
-            moveTimeline.stop();
+        if ( imageView.getLayoutX() + 950 < 0) {
+            System.out.println("Zombie reached the house. Game Over!" + imageView.getLayoutX());
+            TimelineManager.getInstance().stopAll();
         }
     }
 
