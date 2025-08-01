@@ -74,7 +74,7 @@ public class LevelOneController implements Initializable {
         GridPane grid = new GridPane();
         grid.setLayoutX(220);
         grid.setLayoutY(220);
-        grid.setStyle("-fx-border-color: #81782a;");
+        //grid.setStyle("-fx-border-color: #81782a;");
         gamePane.getChildren().add(grid);
         for (int row = 0; row < GameRoot.getInstance().getROWS(); row++) {
             for (int col = 0; col < GameRoot.getInstance().getCOLS(); col++) {
@@ -82,8 +82,6 @@ public class LevelOneController implements Initializable {
                 tile.setFill(Color.rgb(0, 0, 0, 0));
                 grid.add(tile, col, row);
                 //tile.setStroke(Color.DARKGREEN);
-                //tile.setStyle("-fx-border-color: #81782a;");
-                //tile.setStyle("-fx-border-color: #00ffcc;");
                 int finalRow = row;
                 int finalCol = col;
 
@@ -119,9 +117,49 @@ public class LevelOneController implements Initializable {
             }
         }
 
+        Timeline fallingSuns = new Timeline(new KeyFrame(Duration.seconds(7), e -> {
+            spawnFallingSun();
+        }));
+        fallingSuns.setCycleCount(Timeline.INDEFINITE);
+        fallingSuns.play();
+
 
 
         spawnZombies();
+    }
+
+    private void spawnFallingSun() {
+        Image sunImg = new Image(getClass().getResource("/images/sun.png").toExternalForm());
+        ImageView sun = new ImageView(sunImg);
+        sun.setFitWidth(40);
+        sun.setFitHeight(40);
+
+
+        Random rand = new Random();
+        double startX = 260 + rand.nextInt(800);
+        sun.setLayoutX(startX);
+        sun.setLayoutY(-50);
+
+        GameRoot.getInstance().getGamePane().getChildren().add(sun);
+
+
+        Timeline fall = new Timeline(new KeyFrame(Duration.millis(20), e -> {
+            sun.setLayoutY(sun.getLayoutY() + 2);
+
+            if (sun.getLayoutY() >= 700) {
+                GameRoot.getInstance().getGamePane().getChildren().remove(sun);
+            }
+        }));
+        fall.setCycleCount(Timeline.INDEFINITE);
+        fall.play();
+
+
+        sun.setOnMouseClicked(e -> {
+            GameRoot.getInstance().getGamePane().getChildren().remove(sun);
+            GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints()+25);
+            GameRoot.getInstance().loadSunNum();
+            fall.stop();
+        });
     }
 
 
