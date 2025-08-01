@@ -2,12 +2,21 @@ package org.example.plantvszombies.Model;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.example.plantvszombies.Controller.HelloController;
+import org.example.plantvszombies.Controller.PlayerController;
+import org.example.plantvszombies.HelloApplication;
 import org.example.plantvszombies.Model.Game.GameRoot;
 import org.example.plantvszombies.Model.Game.GameState;
 import org.example.plantvszombies.Model.Game.TimelineManager;
+
+import java.io.IOException;
 
 public class Zombie {
     private int health;
@@ -15,7 +24,7 @@ public class Zombie {
     private int damage;
     private ImageView imageView;
     private Timeline moveTimeline;
-
+    private boolean hasReachedHouse = false;
 
     public Zombie(int health, int speed, int damage) {
         this.health = health;
@@ -53,8 +62,32 @@ public class Zombie {
         }
 
         if ( imageView.getLayoutX() + 950 < 0) {
-            System.out.println("Zombie reached the house. Game Over!" + imageView.getLayoutX());
-            TimelineManager.getInstance().stopAll();
+            if (!hasReachedHouse) {
+                hasReachedHouse = true;
+                System.out.println("Zombie reached the house. Game Over!" + imageView.getLayoutX());
+                TimelineManager.getInstance().stopAll();
+                PlayerController.increaseLoses(HelloController.logInPlayer.getUserName());
+                HelloController.logInPlayer = PlayerController.LogIn(HelloController.logInPlayer.getUserName(), HelloController.logInPlayer.getPassword());
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Zombie");
+                alert.setHeaderText("Zombie reached!");
+                alert.setContentText("You Dead");
+                alert.show();
+
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("HomePageView.fxml"));
+                Scene scene;
+                try {
+                    scene = new Scene(loader.load());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                Stage stage = (Stage) GameRoot.getInstance().getGamePane().getScene().getWindow();
+                if (scene != null) {
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            }
         }
     }
 
@@ -67,7 +100,7 @@ public class Zombie {
             moveTimeline.play();
             return;
         }
-            int newHP = GameState.getInstance().getPlantsHealth().get(plant) - damage;
+            int newHP = currentHP - damage;
             GameState.getInstance().getPlantsHealth().put(plant, newHP);
 
             if (newHP <= 0) {

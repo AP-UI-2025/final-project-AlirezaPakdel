@@ -140,6 +140,62 @@ public class PlayerController {
         }
     }
 
+    public static void increaseWins(String username) {
+        String URL = "jdbc:mysql://localhost/plantsvszomies";
+        String USER = "root";
+        String PASSWORD = "";
+
+        try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
+             Statement stmt = con.createStatement()) {
+
+            String sql = String.format("UPDATE players SET win = win + 1 WHERE UserName = '%s'", username);
+
+            stmt.executeUpdate(sql);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void increaseLoses(String username) {
+        String URL = "jdbc:mysql://localhost/plantsvszomies";
+        String USER = "root";
+        String PASSWORD = "";
+
+        try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
+             Statement stmt = con.createStatement()) {
+
+            String sql = String.format("UPDATE players SET loss = loss + 1 WHERE UserName = '%s'", username);
+
+            stmt.executeUpdate(sql);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void increaseLevel(String username) {
+        String URL = "jdbc:mysql://localhost/plantsvszomies";
+        String USER = "root";
+        String PASSWORD = "";
+
+        try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
+             Statement stmt = con.createStatement()) {
+
+            String sql = String.format("UPDATE players SET Level = Level + 1 WHERE UserName = '%s'", username);
+
+            stmt.executeUpdate(sql);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 

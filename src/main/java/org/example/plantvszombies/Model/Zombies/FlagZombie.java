@@ -4,12 +4,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.example.plantvszombies.Model.Game.GameRoot;
 import org.example.plantvszombies.Model.Game.GameState;
-import org.example.plantvszombies.Model.ResistantZombie;
+import org.example.plantvszombies.Model.SpecialAbility;
+import org.example.plantvszombies.Model.SpecialZombie;
 
-public class NormalZombie extends ResistantZombie {
-    public NormalZombie(double y) {
-        super(5, 5, 1);
-        Image image = new Image(getClass().getResource("/images/NormalZombie.gif").toExternalForm());
+public class FlagZombie extends SpecialZombie {
+    public FlagZombie(double y) {
+        super(10, 2, 2, SpecialAbility.Fast);
+        Image image = new Image(getClass().getResource("/images/flagZombie.gif").toExternalForm());
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(120);
         imageView.setFitWidth(110);

@@ -3,7 +3,10 @@ package org.example.plantvszombies.Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,14 +15,18 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.example.plantvszombies.HelloApplication;
 import org.example.plantvszombies.Model.Game.GameRoot;
 import org.example.plantvszombies.Model.Game.GameState;
 import org.example.plantvszombies.Model.Game.TimelineManager;
 import org.example.plantvszombies.Model.Plants.PeaShooter;
 import org.example.plantvszombies.Model.Plants.SunFlower;
+import org.example.plantvszombies.Model.Zombies.FlagZombie;
 import org.example.plantvszombies.Model.Zombies.NormalZombie;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -27,8 +34,8 @@ import java.util.ResourceBundle;
 public class LevelOneController implements Initializable {
 
     private int currentWave = 0;
-    private final int totalWaves = 3;
-    private final int[] zombiesPerWave = {2, 4, 6};
+    private final int totalWaves = 2;
+    private final int[] zombiesPerWave = {2, 4};
 
 
     @FXML
@@ -87,7 +94,7 @@ public class LevelOneController implements Initializable {
                 Rectangle tile = new Rectangle(GameRoot.getInstance().getTILE_WIDTH(), GameRoot.getInstance().getTILE_HEIGHT());
                 tile.setFill(Color.rgb(0, 0, 0, 0));
                 grid.add(tile, col, row);
-                tile.setStroke(Color.DARKGREEN);
+                //tile.setStroke(Color.DARKGREEN);
                 int finalRow = row;
                 int finalCol = col;
 
@@ -124,6 +131,37 @@ public class LevelOneController implements Initializable {
                     selectedPlant = PlantType.NONE;
                 });
             }
+
+            Timeline winChecker = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+                if (GameState.getInstance().areAllZombiesSpawned()
+                        && GameState.getInstance().getZombies().isEmpty()) {
+
+                    TimelineManager.getInstance().stopAll();
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Victory");
+                    alert.setHeaderText("Win");
+                    alert.setContentText("All Zombies have been dead");
+                    alert.show();
+                    PlayerController.increaseWins(HelloController.logInPlayer.getUserName());
+                    HelloController.logInPlayer=PlayerController.LogIn(HelloController.logInPlayer.getUserName() , HelloController.logInPlayer.getPassword());
+                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("HomePageView.fxml"));
+                    Scene scene;
+                    try {
+                        scene = new Scene(loader.load());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Stage stage = (Stage) gamePane.getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            }));
+            winChecker.setCycleCount(Timeline.INDEFINITE);
+            winChecker.play();
+            TimelineManager.getInstance().add(winChecker);
+
+
         }
 
         Timeline fallingSuns = new Timeline(new KeyFrame(Duration.seconds(7), e -> {
@@ -199,6 +237,11 @@ public class LevelOneController implements Initializable {
     }
 
     private void spawnFinalWave() {
+        Random rand = new Random();
+        int row = rand.nextInt(5);
+        double startY = 200 + row * 100;
+        FlagZombie zombie = new FlagZombie(startY);
+
         System.out.println(" Final Wave!");
         Timeline spawner = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> {
             spawnZombie();
@@ -206,6 +249,7 @@ public class LevelOneController implements Initializable {
         spawner.setCycleCount(10);
         spawner.play();
         TimelineManager.getInstance().getTimelines().add(spawner);
+        GameState.getInstance().setAllZombiesSpawned(true);
     }
 
     private void spawnZombie() {

@@ -14,12 +14,21 @@ import java.util.Map;
 public class GameState {
     private static GameState instance ;
 
-    private int sunPoints = 50;
+    private int sunPoints = 5000;
     private List<ImageView> zombies = new ArrayList<>();
     private List<ImageView> plants = new ArrayList<>();
     private Map<ImageView, Integer> plantsHealth = new HashMap<>();
     private Map<ImageView, Integer> zombiesHealth = new HashMap<>();
     private Map<ImageView , Plant> plantsClass = new HashMap<>();
+    private boolean allZombiesSpawned = false;
+
+    public boolean areAllZombiesSpawned() {
+        return allZombiesSpawned;
+    }
+
+    public void setAllZombiesSpawned(boolean value) {
+        allZombiesSpawned = value;
+    }
 
     private GameState() {}
     public static void NewGameState(){
