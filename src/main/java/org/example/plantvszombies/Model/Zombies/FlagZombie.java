@@ -14,7 +14,7 @@ public class FlagZombie extends SpecialZombie {
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(120);
         imageView.setFitWidth(110);
-        imageView.setPreserveRatio(true);
+        imageView.setPreserveRatio(false);
         imageView.setX(1100);
         //imageView.setY(200);
         System.out.println(y);
