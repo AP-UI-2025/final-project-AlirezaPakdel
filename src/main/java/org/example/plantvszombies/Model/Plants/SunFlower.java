@@ -9,10 +9,11 @@ import org.example.plantvszombies.Model.Game.GameRoot;
 import org.example.plantvszombies.Model.Game.GameState;
 import org.example.plantvszombies.Model.ProductionPlant;
 import org.example.plantvszombies.Model.Game.TimelineManager;
+import org.example.plantvszombies.Model.Sun;
 
 public class SunFlower extends ProductionPlant {
     public SunFlower(double row, double col) {
-        super(50, "SunFlower", 10, 25);
+        super(50, "SunFlower", 5, 25);
         Image image = new Image(getClass().getResource("/images/sunflower-pvz.gif").toExternalForm());
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(70);
@@ -26,16 +27,18 @@ public class SunFlower extends ProductionPlant {
         GameState.getInstance().getPlantsHealth().put(imageView, 5);
         setCol(col);
         setRow(row);
+        startProduction();
     }
 
-    public void startProduction(TimelineManager manager) {
+
+    public void startProduction() {
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.seconds(this.getProductionTime()),
                 e -> produce()
         ));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-        manager.add(timeline);
+        TimelineManager.getInstance().add(timeline);
     }
 
 

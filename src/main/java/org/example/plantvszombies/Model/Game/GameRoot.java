@@ -89,7 +89,7 @@ public class GameRoot {
 
     }
 
-    private void loadSunNum() {
+    public void loadSunNum() {
         sunLabel.setText("Sun : " + GameState.getInstance().getSunPoints());
     }
 

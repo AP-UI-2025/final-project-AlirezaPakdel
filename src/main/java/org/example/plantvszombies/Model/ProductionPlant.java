@@ -1,6 +1,7 @@
 package org.example.plantvszombies.Model;
 
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import org.example.plantvszombies.Model.Game.GameRoot;
 
 public class ProductionPlant extends Plant{
@@ -14,12 +15,18 @@ public class ProductionPlant extends Plant{
     }
 
 
-    protected void produce() {
+    public void produce() {
+        System.out.println("ProductionPlant produce");
         Sun sun = new Sun(getRow(), getCol());
 
-        GameRoot.getInstance().getGamePane().getChildren().add(sun.getImageView());
-        sun.playDropAnimation();
+
+        javafx.animation.Timeline removeTimeline = new javafx.animation.Timeline(new javafx.animation.KeyFrame(Duration.seconds(5), e -> {
+            GameRoot.getInstance().getGamePane().getChildren().remove(sun.getImageView());
+        }));
+        removeTimeline.setCycleCount(1);
+        removeTimeline.play();
     }
+
 
 
     public static void Production(){}

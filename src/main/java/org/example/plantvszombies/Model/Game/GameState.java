@@ -12,7 +12,7 @@ import java.util.Map;
 public class GameState {
     private static GameState instance ;
 
-    private int sunPoints = 2000;
+    private int sunPoints = 50;
     private List<ImageView> zombies = new ArrayList<>();
     private List<ImageView> plants = new ArrayList<>();
     private Map<ImageView, Integer> plantsHealth = new HashMap<>();

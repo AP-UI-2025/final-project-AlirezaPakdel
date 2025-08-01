@@ -19,11 +19,15 @@ public class Sun {
         imageView = new ImageView(image);
         imageView.setFitWidth(40);
         imageView.setFitHeight(40);
-        imageView.setLayoutX(col * 100 + 30);
+        imageView.setLayoutX(col  + 30);
+        imageView.setLayoutY(row  + 30);
+
+        GameRoot.getInstance().getGamePane().getChildren().add(imageView);
 
         imageView.setOnMouseClicked(e -> {
             GameState.getInstance().addSun(25);
             GameRoot.getInstance().getGamePane().getChildren().remove(imageView);
+            GameRoot.getInstance().loadSunNum();
         });
     }
 
@@ -31,13 +35,5 @@ public class Sun {
         return imageView;
     }
 
-    public void playDropAnimation() {
-        ImageView imageView = getImageView();
 
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(2), imageView);
-        transition.setFromY(-100);
-        transition.setToY(0);
-        transition.setCycleCount(1);
-        transition.play();
-    }
 }

@@ -81,7 +81,7 @@ public class LevelOneController implements Initializable {
                 Rectangle tile = new Rectangle(GameRoot.getInstance().getTILE_WIDTH(), GameRoot.getInstance().getTILE_HEIGHT());
                 tile.setFill(Color.rgb(0, 0, 0, 0));
                 grid.add(tile, col, row);
-                tile.setStroke(Color.DARKGREEN);
+                //tile.setStroke(Color.DARKGREEN);
                 //tile.setStyle("-fx-border-color: #81782a;");
                 //tile.setStyle("-fx-border-color: #00ffcc;");
                 int finalRow = row;
@@ -98,6 +98,7 @@ public class LevelOneController implements Initializable {
                             if (GameState.getInstance().getSunPoints()>=100) {
                                 GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints()-100);
                                 PeaShooter peaShooter = new PeaShooter(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() , grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH()+20);
+                                GameRoot.getInstance().loadSunNum();
                                 break;
                             }else{
                                 break;
@@ -106,6 +107,7 @@ public class LevelOneController implements Initializable {
                             if (GameState.getInstance().getSunPoints()>=50) {
                                 GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints()-50);
                                 SunFlower sunFlower = new SunFlower(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() , grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH()+20);
+                                GameRoot.getInstance().loadSunNum();
                                 break;
                             }else{
                                 break;
