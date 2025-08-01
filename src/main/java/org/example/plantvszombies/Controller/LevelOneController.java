@@ -81,7 +81,7 @@ public class LevelOneController implements Initializable {
                 Rectangle tile = new Rectangle(GameRoot.getInstance().getTILE_WIDTH(), GameRoot.getInstance().getTILE_HEIGHT());
                 tile.setFill(Color.rgb(0, 0, 0, 0));
                 grid.add(tile, col, row);
-                //tile.setStroke(Color.DARKGREEN);
+                tile.setStroke(Color.DARKGREEN);
                 int finalRow = row;
                 int finalCol = col;
 
@@ -95,7 +95,7 @@ public class LevelOneController implements Initializable {
                         case PEASHOOTER:
                             if (GameState.getInstance().getSunPoints()>=100) {
                                 GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints()-100);
-                                PeaShooter peaShooter = new PeaShooter(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() , grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH()+20);
+                                PeaShooter peaShooter = new PeaShooter(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() +10 , grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH()+20);
                                 GameRoot.getInstance().loadSunNum();
                                 GameState.getInstance().getPlantsClass().put(peaShooter.getImageView() , peaShooter);
                                 break;
@@ -105,7 +105,7 @@ public class LevelOneController implements Initializable {
                         case SUNFLOWER:
                             if (GameState.getInstance().getSunPoints()>=50) {
                                 GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints()-50);
-                                SunFlower sunFlower = new SunFlower(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() , grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH()+20);
+                                SunFlower sunFlower = new SunFlower(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() +10, grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH()+20);
                                 GameRoot.getInstance().loadSunNum();
                                 GameState.getInstance().getPlantsClass().put(sunFlower.getImageView() , sunFlower);
 

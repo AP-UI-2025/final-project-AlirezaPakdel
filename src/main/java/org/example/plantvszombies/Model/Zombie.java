@@ -2,6 +2,7 @@ package org.example.plantvszombies.Model;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import org.example.plantvszombies.Model.Game.GameRoot;
@@ -40,10 +41,11 @@ public class Zombie {
             if (imageView.getBoundsInParent().intersects(image.getBoundsInParent())) {
                 isEating = true;
                 moveTimeline.stop();
+                Image imageEat = new Image(getClass().getResource("/images/NormalEat.gif").toExternalForm());
+                setImage(imageEat);
                 Timeline eat = new Timeline(new KeyFrame(Duration.seconds(speed) , event -> eatPlant(image)));
                 eat.setCycleCount(Timeline.INDEFINITE);
                 eat.play();
-
             }
         }
         if (!isEating) {
@@ -60,6 +62,8 @@ public class Zombie {
         Integer currentHP = GameState.getInstance().getPlantsHealth().get(plant);
 
         if (currentHP == null) {
+            Image image = new Image(getClass().getResource("/images/NormalZombie.gif").toExternalForm());
+            setImage(image);
             moveTimeline.play();
             return;
         }
@@ -70,6 +74,8 @@ public class Zombie {
                 for (Timeline ti : GameState.getInstance().getPlantsClass().get(plant).getAllTimelines() ){
                     ti.stop();
                 }
+                Image image = new Image(getClass().getResource("/images/NormalZombie.gif").toExternalForm());
+                setImage(image);
                 GameState.getInstance().getPlants().remove(plant);
                 GameState.getInstance().getPlantsHealth().remove(plant);
                 GameRoot.getInstance().getGamePane().getChildren().remove(plant);
@@ -78,6 +84,11 @@ public class Zombie {
 
     }
 
+    private void setImage(Image image) {
+        if (imageView.getImage() != image) {
+            imageView.setImage(image);
+        }
+    }
 
     public void die() {
         GameRoot.getInstance().getGamePane().getChildren().remove(imageView);

@@ -24,4 +24,7 @@ public class NormalZombie extends ResistantZombie {
         GameRoot.getInstance().getGamePane().getChildren().add(imageView);
         super.startMoving();
     }
+
+
+
 }
