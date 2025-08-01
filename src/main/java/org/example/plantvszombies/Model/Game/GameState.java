@@ -3,6 +3,7 @@ package org.example.plantvszombies.Model.Game;
 import javafx.scene.image.ImageView;
 import org.example.plantvszombies.Model.Zombie;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,14 +12,16 @@ import java.util.Map;
 public class GameState {
     private static GameState instance ;
 
-    private int sunPoints = 50;
+    private int sunPoints = 2000;
     private List<ImageView> zombies = new ArrayList<>();
     private List<ImageView> plants = new ArrayList<>();
     private Map<ImageView, Integer> plantsHealth = new HashMap<>();
     private Map<ImageView, Integer> zombiesHealth = new HashMap<>();
 
     private GameState() {}
-
+    public static void NewGameState(){
+        instance = new GameState();
+    }
     public static GameState getInstance() {
         if (instance == null) {
             instance = new GameState();
@@ -39,6 +42,10 @@ public class GameState {
 
     public void setZombies(List<ImageView> zombies) {
         this.zombies = zombies;
+    }
+
+    public void setSunPoints(int sunPoints) {
+        this.sunPoints = sunPoints;
     }
 
     public int getSunPoints() {

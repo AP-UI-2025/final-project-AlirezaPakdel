@@ -13,6 +13,15 @@ public class WarriorPlant extends Plant {
     private int attackPower;
     private int attackSpeed;
     private BulletType bulletType;
+    private Timeline shootTimeline;
+
+    public Timeline getShootTimeline() {
+        return shootTimeline;
+    }
+
+    public void setShootTimeline(Timeline shootTimeline) {
+        this.shootTimeline = shootTimeline;
+    }
 
     public WarriorPlant(int solarCost, String plantName , int attackPower , int attackSpeed , BulletType bulletType) {
         super(solarCost, plantName);
@@ -30,8 +39,8 @@ public class WarriorPlant extends Plant {
             ImageView pea = new ImageView(peaImg);
             pea.setFitWidth(20);
             pea.setFitHeight(20);
-            pea.setLayoutX(getCol()+5);
-            pea.setLayoutY(getRow() - 15);
+            pea.setLayoutX(getCol()+35);
+            pea.setLayoutY(getRow() - 5);
             GameRoot.getInstance().getGamePane().getChildren().add(pea);
 
             final boolean[] hit = {false};
@@ -61,6 +70,9 @@ public class WarriorPlant extends Plant {
                     }
                 }
             }));
+
+            movePea.setCycleCount(Timeline.INDEFINITE);
+            movePea.play();
 
         } else if (bulletType==BulletType.Snowy) {
             Image peaImg = new Image(getClass().getResource("/images/snowyPea.png").toExternalForm());
@@ -100,6 +112,8 @@ public class WarriorPlant extends Plant {
                     }
                 }
             }));
+            movePea.setCycleCount(Timeline.INDEFINITE);
+            movePea.play();
         } else if (bulletType==BulletType.Smoke) {
             Image peaImg = new Image(getClass().getResource("/images/smokePea.png").toExternalForm());
             ImageView pea = new ImageView(peaImg);
@@ -131,19 +145,28 @@ public class WarriorPlant extends Plant {
                         } else {
                             GameState.getInstance().getZombiesHealth().put(zombie, hp);
                         }
+                        GameRoot.getInstance().getGamePane().getChildren().remove(pea);
+
 
                         return;
                     }
                 }
+                if (pea.getLayoutX() > 1200) {
+                    GameRoot.getInstance().getGamePane().getChildren().remove(pea);
+                }
             }));
+            movePea.setCycleCount(Timeline.INDEFINITE);
+            movePea.play();
+
         }
     }
 
-    public void startShooting(TimelineManager manager) {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(getAttackSpeed()), e -> Shoot()));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-        manager.add(timeline);
+    public void startShooting() {
+        shootTimeline = new Timeline(new KeyFrame(Duration.seconds(getAttackSpeed()), e -> Shoot()));
+        shootTimeline.setCycleCount(Timeline.INDEFINITE);
+        shootTimeline.play();
+        TimelineManager.getInstance().add(shootTimeline);
+
     }
 
 

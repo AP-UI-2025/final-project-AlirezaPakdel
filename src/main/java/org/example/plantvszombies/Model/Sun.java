@@ -9,9 +9,9 @@ import org.example.plantvszombies.Model.Game.GameState;
 
 public class Sun {
     private final ImageView imageView;
-    private final int row, col;
+    private final double row, col;
 
-    public Sun(int row, int col) {
+    public Sun(double row, double col) {
         this.row = row;
         this.col = col;
 

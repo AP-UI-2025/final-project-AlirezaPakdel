@@ -6,7 +6,7 @@ public class Plant {
 
     private String plantName;
     private final int solarCost;
-    private int row, col;
+    private double row, col;
     private ImageView imageView;
 
     public Plant(int solarCost, String plantName) {
@@ -14,11 +14,11 @@ public class Plant {
         this.plantName = plantName;
     }
 
-    public int getRow() {
+    public double getRow() {
         return row;
     }
 
-    public void setRow(int row) {
+    public void setRow(double row) {
         this.row = row;
     }
 
@@ -30,11 +30,11 @@ public class Plant {
         this.imageView = imageView;
     }
 
-    public int getCol() {
+    public double getCol() {
         return col;
     }
 
-    public void setCol(int col) {
+    public void setCol(double col) {
         this.col = col;
     }
 

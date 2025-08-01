@@ -22,14 +22,14 @@ public class Zombie {
         this.damage = damage;
     }
 
-    public void startMoving(GameState gameState) {
-        moveTimeline = new Timeline(new KeyFrame(Duration.millis(100), e -> moveZombie(gameState)));
+    public void startMoving() {
+        moveTimeline = new Timeline(new KeyFrame(Duration.millis(100), e -> moveZombie()));
         moveTimeline.setCycleCount(Timeline.INDEFINITE);
         TimelineManager.getInstance().add(moveTimeline);
         moveTimeline.play();
     }
 
-    private void moveZombie(GameState gameState) {
+    private void moveZombie() {
         if (GameState.getInstance().getZombiesHealth().get(imageView) <= 0) {
             die();
             return;
@@ -46,7 +46,8 @@ public class Zombie {
         if (!isEating) {
             imageView.setLayoutX(imageView.getLayoutX() - speed);
         }
-        if (imageView.getLayoutX() < 0) {
+
+        if (imageView.getX() < 0) {
             System.out.println("Zombie reached the house. Game Over!");
             moveTimeline.stop();
         }
