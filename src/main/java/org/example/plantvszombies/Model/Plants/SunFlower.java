@@ -39,6 +39,7 @@ public class SunFlower extends ProductionPlant {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
         TimelineManager.getInstance().add(timeline);
+        super.getAllTimelines().add(timeline);
     }
 
 

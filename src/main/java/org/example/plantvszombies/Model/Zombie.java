@@ -40,7 +40,10 @@ public class Zombie {
             if (imageView.getBoundsInParent().intersects(image.getBoundsInParent())) {
                 isEating = true;
                 moveTimeline.stop();
-                eatPlant(image);
+                Timeline eat = new Timeline(new KeyFrame(Duration.seconds(speed) , event -> eatPlant(image)));
+                eat.setCycleCount(Timeline.INDEFINITE);
+                eat.play();
+
             }
         }
         if (!isEating) {
@@ -54,22 +57,27 @@ public class Zombie {
     }
 
     private void eatPlant(ImageView plant) {
+        Integer currentHP = GameState.getInstance().getPlantsHealth().get(plant);
+
+        if (currentHP == null) {
+            moveTimeline.play();
+            return;
+        }
             int newHP = GameState.getInstance().getPlantsHealth().get(plant) - damage;
             GameState.getInstance().getPlantsHealth().put(plant, newHP);
 
             if (newHP <= 0) {
+                for (Timeline ti : GameState.getInstance().getPlantsClass().get(plant).getAllTimelines() ){
+                    ti.stop();
+                }
+                GameState.getInstance().getPlants().remove(plant);
                 GameState.getInstance().getPlantsHealth().remove(plant);
                 GameRoot.getInstance().getGamePane().getChildren().remove(plant);
+                moveTimeline.play();
             }
 
     }
 
-    public void takeDamage(int amount) {
-        health -= amount;
-        if (health <= 0) {
-            die();
-        }
-    }
 
     public void die() {
         GameRoot.getInstance().getGamePane().getChildren().remove(imageView);

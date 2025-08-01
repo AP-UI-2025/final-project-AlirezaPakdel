@@ -157,7 +157,8 @@ public class WarriorPlant extends Plant {
             }));
             movePea.setCycleCount(Timeline.INDEFINITE);
             movePea.play();
-
+            super.getAllTimelines().add(movePea);
+            TimelineManager.getInstance().add(movePea);
         }
     }
 
@@ -166,6 +167,7 @@ public class WarriorPlant extends Plant {
         shootTimeline.setCycleCount(Timeline.INDEFINITE);
         shootTimeline.play();
         TimelineManager.getInstance().add(shootTimeline);
+        super.getAllTimelines().add(shootTimeline);
 
     }
 

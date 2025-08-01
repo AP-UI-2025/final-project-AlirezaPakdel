@@ -1,6 +1,8 @@
 package org.example.plantvszombies.Model.Game;
 
+import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
+import org.example.plantvszombies.Model.Plant;
 import org.example.plantvszombies.Model.Zombie;
 
 import java.security.PublicKey;
@@ -17,6 +19,7 @@ public class GameState {
     private List<ImageView> plants = new ArrayList<>();
     private Map<ImageView, Integer> plantsHealth = new HashMap<>();
     private Map<ImageView, Integer> zombiesHealth = new HashMap<>();
+    private Map<ImageView , Plant> plantsClass = new HashMap<>();
 
     private GameState() {}
     public static void NewGameState(){
@@ -28,6 +31,15 @@ public class GameState {
         }
         return instance;
     }
+
+    public Map<ImageView, Plant> getPlantsClass() {
+        return plantsClass;
+    }
+
+    public void setPlantsClass(Map<ImageView, Plant> plantsClass) {
+        this.plantsClass = plantsClass;
+    }
+
     public static void setInstance(){
         instance = new GameState();
     }

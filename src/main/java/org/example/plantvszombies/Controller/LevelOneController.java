@@ -97,6 +97,7 @@ public class LevelOneController implements Initializable {
                                 GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints()-100);
                                 PeaShooter peaShooter = new PeaShooter(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() , grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH()+20);
                                 GameRoot.getInstance().loadSunNum();
+                                GameState.getInstance().getPlantsClass().put(peaShooter.getImageView() , peaShooter);
                                 break;
                             }else{
                                 break;
@@ -106,6 +107,8 @@ public class LevelOneController implements Initializable {
                                 GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints()-50);
                                 SunFlower sunFlower = new SunFlower(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() , grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH()+20);
                                 GameRoot.getInstance().loadSunNum();
+                                GameState.getInstance().getPlantsClass().put(sunFlower.getImageView() , sunFlower);
+
                                 break;
                             }else{
                                 break;
@@ -167,7 +170,7 @@ public class LevelOneController implements Initializable {
         Timeline spawner = new Timeline(new KeyFrame(Duration.seconds(5), e -> {
             Random rand = new Random();
             int row = rand.nextInt(5);
-            double startY = 210 + row * 100;
+            double startY = 200 + row * 100;
             NormalZombie normalZombie = new NormalZombie(startY);
 
         }));

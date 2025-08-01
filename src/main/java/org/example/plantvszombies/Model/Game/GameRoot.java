@@ -95,6 +95,8 @@ public class GameRoot {
         Back.setLayoutX(1100);
         Back.setLayoutY(700);
         gamePane.getChildren().add(Back);
+        Back.setStyle("-fx-background-color: Yellow;");
+        Back.setStyle("-fx-border-radius: 35");
         Back.setOnAction(e -> {
             TimelineManager.getInstance().stopAll();
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("HomePageView.fxml"));

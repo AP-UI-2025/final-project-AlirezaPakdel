@@ -1,17 +1,30 @@
 package org.example.plantvszombies.Model;
 
+import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 
-public class Plant {
+import java.util.ArrayList;
+import java.util.List;
 
+public class Plant {
+    private List<Timeline> allTimelines;
     private String plantName;
     private final int solarCost;
     private double row, col;
     private ImageView imageView;
 
     public Plant(int solarCost, String plantName) {
+        allTimelines = new ArrayList<>();
         this.solarCost = solarCost;
         this.plantName = plantName;
+    }
+
+    public List<Timeline> getAllTimelines() {
+        return allTimelines;
+    }
+
+    public void setAllTimelines(List<Timeline> allTimelines) {
+        this.allTimelines = allTimelines;
     }
 
     public double getRow() {

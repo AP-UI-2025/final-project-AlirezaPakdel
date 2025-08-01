@@ -8,6 +8,7 @@ import javafx.util.Duration;
 import org.example.plantvszombies.Model.BulletType;
 import org.example.plantvszombies.Model.Game.GameRoot;
 import org.example.plantvszombies.Model.Game.GameState;
+import org.example.plantvszombies.Model.Game.TimelineManager;
 import org.example.plantvszombies.Model.WarriorPlant;
 
 public class PeaShooter extends WarriorPlant {
@@ -53,6 +54,8 @@ public class PeaShooter extends WarriorPlant {
         }));
         shooter.setCycleCount(Timeline.INDEFINITE);
         shooter.play();
+        TimelineManager.getInstance().add(shooter);
+        super.getAllTimelines().add(shooter);
     }
 
 }
