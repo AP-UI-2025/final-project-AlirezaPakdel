@@ -26,6 +26,11 @@ import java.util.ResourceBundle;
 
 public class LevelOneController implements Initializable {
 
+    private int currentWave = 0;
+    private final int totalWaves = 3;
+    private final int[] zombiesPerWave = {2, 4, 6};
+
+
     @FXML
     private Pane gamePane;
 
@@ -129,7 +134,8 @@ public class LevelOneController implements Initializable {
 
 
 
-        spawnZombies();
+        startWaves();
+
     }
 
     private void spawnFallingSun() {
@@ -167,16 +173,46 @@ public class LevelOneController implements Initializable {
     }
 
 
-    private void spawnZombies() {
-        Timeline spawner = new Timeline(new KeyFrame(Duration.seconds(15), e -> {
-            Random rand = new Random();
-            int row = rand.nextInt(5);
-            double startY = 200 + row * 100;
-            NormalZombie normalZombie = new NormalZombie(startY);
+    private void startWaves() {
+        Timeline waveTimeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
+            if (currentWave < totalWaves) {
+                spawnWave(currentWave);
+                currentWave++;
+            } else {
+                spawnFinalWave();
+            }
+        }));
+        waveTimeline.setCycleCount(totalWaves + 1);
+        waveTimeline.play();
+        TimelineManager.getInstance().getTimelines().add(waveTimeline);
+    }
 
+
+    private void spawnWave(int waveIndex) {
+        int zombiesToSpawn = zombiesPerWave[waveIndex];
+        Timeline spawner = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            spawnZombie();
+        }));
+        spawner.setCycleCount(zombiesToSpawn);
+        spawner.play();
+        TimelineManager.getInstance().getTimelines().add(spawner);
+    }
+
+    private void spawnFinalWave() {
+        System.out.println(" Final Wave!");
+        Timeline spawner = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> {
+            spawnZombie();
         }));
         spawner.setCycleCount(10);
         spawner.play();
         TimelineManager.getInstance().getTimelines().add(spawner);
     }
+
+    private void spawnZombie() {
+        Random rand = new Random();
+        int row = rand.nextInt(5);
+        double startY = 200 + row * 100;
+        NormalZombie zombie = new NormalZombie(startY);
+    }
+
 }
