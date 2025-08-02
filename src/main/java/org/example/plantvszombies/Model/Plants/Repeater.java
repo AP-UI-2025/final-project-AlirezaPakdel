@@ -40,19 +40,25 @@ public class Repeater extends WarriorPlant {
                     break;
                 }
             }
+            //System.out.println(zombieInRow);
 
             if (zombieInRow) {
                 if (super.getShootTimeline() == null) {
                     Timeline sh = new Timeline(new KeyFrame(Duration.seconds(0.1) , er ->{
                         startShooting();
+                        startShooting2();
                     }));
-                    sh.setCycleCount(2);
                     sh.play();
                 }
             } else {
                 if (super.getShootTimeline() != null) {
                     super.getShootTimeline().stop();
                     super.setShootTimeline(null);
+                }
+                if (super.getShootTimeline2() != null) {
+                    super.getShootTimeline2().stop();
+                    super.setShootTimeline2(null);
+
                 }
             }
         }));

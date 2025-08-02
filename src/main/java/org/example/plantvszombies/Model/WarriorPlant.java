@@ -19,6 +19,15 @@ public class WarriorPlant extends Plant {
     private int attackSpeed;
     private BulletType bulletType;
     private Timeline shootTimeline;
+    private Timeline shootTimeline2;
+
+    public Timeline getShootTimeline2() {
+        return shootTimeline2;
+    }
+
+    public void setShootTimeline2(Timeline shootTimeline2) {
+        this.shootTimeline2 = shootTimeline2;
+    }
 
     public Timeline getShootTimeline() {
         return shootTimeline;
@@ -202,6 +211,14 @@ public class WarriorPlant extends Plant {
         shootTimeline.play();
         TimelineManager.getInstance().add(shootTimeline);
         super.getAllTimelines().add(shootTimeline);
+
+    }
+    public void startShooting2() {
+        shootTimeline2 = new Timeline(new KeyFrame(Duration.seconds(getAttackSpeed()+0.1), e -> Shoot()));
+        shootTimeline2.setCycleCount(Timeline.INDEFINITE);
+        shootTimeline2.play();
+        TimelineManager.getInstance().add(shootTimeline2);
+        super.getAllTimelines().add(shootTimeline2);
 
     }
 
