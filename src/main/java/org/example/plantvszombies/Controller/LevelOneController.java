@@ -155,6 +155,9 @@ public class LevelOneController implements Initializable {
                     alert.setContentText("All Zombies have been dead");
                     alert.show();
                     PlayerController.increaseWins(HelloController.logInPlayer.getUserName());
+                    if (HelloController.logInPlayer.getLevel()==0) {
+                        PlayerController.increaseLevel(HelloController.logInPlayer.getUserName());
+                    }
                     HelloController.logInPlayer=PlayerController.LogIn(HelloController.logInPlayer.getUserName() , HelloController.logInPlayer.getPassword());
                     FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("HomePageView.fxml"));
                     Scene scene;
