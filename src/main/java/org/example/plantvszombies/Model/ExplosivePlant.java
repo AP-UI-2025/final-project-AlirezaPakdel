@@ -1,5 +1,9 @@
 package org.example.plantvszombies.Model;
 
+import javafx.scene.image.ImageView;
+import org.example.plantvszombies.Model.Game.GameRoot;
+import org.example.plantvszombies.Model.Game.GameState;
+
 public class ExplosivePlant extends Plant {
     private int destructionPower;
     private int destructionRange;
@@ -13,7 +17,32 @@ public class ExplosivePlant extends Plant {
         this.destructionType = destructionType;
     }
 
-    public static void Explosion(){    }
+    public void Explosion() {
+
+        double minR = getRow() - GameRoot.getInstance().getTILE_WIDTH();
+        double maxR = getRow() + GameRoot.getInstance().getTILE_WIDTH();
+
+        double minC = getCol() - GameRoot.getInstance().getTILE_WIDTH();
+        double maxC = getCol() + GameRoot.getInstance().getTILE_WIDTH();
+
+        int plantX = getX();
+        int plantY = getY();
+
+        for (ImageView zombie : GameState.getInstance().getZombies()) {
+
+            if (zombie.getX() > minR && zombie.getX() < maxR) {
+                if (zombie.getY() > minC && zombie.getY() < maxC) {
+                    GameState.getInstance().getZombiesClass().get(zombie).die();
+                }
+            }
+
+
+        }
+
+        GameRoot.getInstance().getGamePane().getChildren().remove(this.getImageView());
+        GameRoot.getInstance().setPlantPlaced(plantX, plantY, false);
+    }
+
 
 
 
