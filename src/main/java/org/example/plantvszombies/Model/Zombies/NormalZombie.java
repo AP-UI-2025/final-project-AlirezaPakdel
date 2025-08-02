@@ -8,7 +8,7 @@ import org.example.plantvszombies.Model.ResistantZombie;
 
 public class NormalZombie extends ResistantZombie {
     public NormalZombie(double y) {
-        super(5, 1, 1);
+        super(5, 9, 1);
         Image image = new Image(getClass().getResource("/images/NormalZombie.gif").toExternalForm());
         Image imageEat = new Image(getClass().getResource("/images/NormalEat.gif").toExternalForm());
         super.setEatImage(imageEat);

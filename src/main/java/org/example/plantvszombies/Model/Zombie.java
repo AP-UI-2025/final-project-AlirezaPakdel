@@ -59,6 +59,10 @@ public class Zombie {
             return;
         }
 
+        for (LawnMower mower : GameRoot.getInstance().mowers) {
+            mower.checkCollisionWithZombie(imageView);
+        }
+
         boolean isEating = false;
         for (ImageView image : GameState.getInstance().getPlants()) {
             if (imageView.getBoundsInParent().intersects(image.getBoundsInParent())) {

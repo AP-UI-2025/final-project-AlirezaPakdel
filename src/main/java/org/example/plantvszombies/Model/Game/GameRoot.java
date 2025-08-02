@@ -17,10 +17,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.example.plantvszombies.HelloApplication;
+import org.example.plantvszombies.Model.LawnMower;
 import org.example.plantvszombies.Model.Plants.PeaShooter;
 import org.example.plantvszombies.Model.Plants.SunFlower;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameRoot {
     public int getROWS() {
@@ -44,6 +47,7 @@ public class GameRoot {
     private final int TILE_WIDTH = 80;
     private final int TILE_HEIGHT = 100;
     private boolean[][] plantPlaced;
+    public List<LawnMower> mowers = new ArrayList<>();
 
 
     Label sunLabel;
@@ -127,8 +131,19 @@ public class GameRoot {
             stage.show();
         });
 
+        loadLawnMowers();
 
 
+
+
+    }
+
+    public void loadLawnMowers() {
+        for (int i = 0; i < 5; i++) {
+            double y = 240 + i * 100;
+            LawnMower mower = new LawnMower(150, y);
+            mowers.add(mower);
+        }
     }
 
     public void loadSunNum() {
