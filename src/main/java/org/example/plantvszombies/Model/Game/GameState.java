@@ -20,7 +20,16 @@ public class GameState {
     private Map<ImageView, Integer> plantsHealth = new HashMap<>();
     private Map<ImageView, Integer> zombiesHealth = new HashMap<>();
     private Map<ImageView , Plant> plantsClass = new HashMap<>();
+    private Map<ImageView , Zombie > zombiesClass = new HashMap<>();
     private boolean allZombiesSpawned = false;
+
+    public Map<ImageView, Zombie> getZombiesClass() {
+        return zombiesClass;
+    }
+
+    public void setZombiesClass(Map<ImageView, Zombie> zombiesClass) {
+        this.zombiesClass = zombiesClass;
+    }
 
     public boolean areAllZombiesSpawned() {
         return allZombiesSpawned;
@@ -75,14 +84,12 @@ public class GameState {
 
     public void addSun(int amount) {
         sunPoints += amount;
-        System.out.println("Sun increased to: " + sunPoints);
 
     }
 
     public boolean spendSun(int amount) {
         if (sunPoints >= amount) {
             sunPoints -= amount;
-            System.out.println("Sun decreased to: " + sunPoints);
             return true;
         }
         return false;

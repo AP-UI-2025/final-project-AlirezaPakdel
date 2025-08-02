@@ -37,7 +37,6 @@ public class LevelOneController implements Initializable {
     private final int totalWaves = 2;
     private final int[] zombiesPerWave = {2, 4};
 
-
     @FXML
     private Pane gamePane;
 
@@ -68,7 +67,6 @@ public class LevelOneController implements Initializable {
         peashooterIcon.setFitHeight(70);
         peashooterIcon.setOnMouseClicked(e -> {
             selectedPlant = PlantType.PEASHOOTER;
-            System.out.println("Peashooter selected");
         });
 
         Image sunflowerImage = new Image(getClass().getResource("/images/SunflowerSeedPacket.png").toExternalForm());
@@ -77,7 +75,6 @@ public class LevelOneController implements Initializable {
         sunflowerIcon.setFitHeight(70);
         sunflowerIcon.setOnMouseClicked(e -> {
             selectedPlant = PlantType.SUNFLOWER;
-            System.out.println("Sunflower selected");
         });
 
         plantBar.getChildren().addAll(peashooterIcon, sunflowerIcon);
@@ -100,44 +97,45 @@ public class LevelOneController implements Initializable {
 
                 tile.setOnMouseClicked(e -> {
                     if (selectedPlant == PlantType.NONE) {
-                        System.out.println("No plant selected.");
                         return;
                     }
-
-                    switch (selectedPlant) {
-                        case PEASHOOTER:
-                            if (GameState.getInstance().getSunPoints()>=100) {
-                                GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints()-100);
-                                PeaShooter peaShooter = new PeaShooter(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() +10 , grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH()+20);
-                                GameRoot.getInstance().loadSunNum();
-                                GameState.getInstance().getPlantsClass().put(peaShooter.getImageView() , peaShooter);
-                                break;
-                            }else{
-                                break;
-                            }
-                        case SUNFLOWER:
-                            if (GameState.getInstance().getSunPoints()>=50) {
-                                GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints()-50);
-                                SunFlower sunFlower = new SunFlower(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() +10, grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH()+20);
-                                GameRoot.getInstance().loadSunNum();
-                                GameState.getInstance().getPlantsClass().put(sunFlower.getImageView() , sunFlower);
-
-                                break;
-                            }else{
-                                break;
-                            }
+                    double tileX = grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() +10;
+                    double tileY = grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH()+20;
+                    if (!GameRoot.getInstance().getPlantPlaced(finalRow, finalCol)) {
+                        switch (selectedPlant) {
+                            case PEASHOOTER:
+                                if (GameState.getInstance().getSunPoints() >= 100) {
+                                    GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints() - 100);
+                                    PeaShooter peaShooter = new PeaShooter(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() + 10, grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH() + 20, finalRow, finalCol);
+                                    GameRoot.getInstance().loadSunNum();
+                                    GameState.getInstance().getPlantsClass().put(peaShooter.getImageView(), peaShooter);
+                                    GameRoot.getInstance().setPlantPlaced(finalRow, finalCol, true);
+                                    break;
+                                } else {
+                                    break;
+                                }
+                            case SUNFLOWER:
+                                if (GameState.getInstance().getSunPoints() >= 50) {
+                                    GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints() - 50);
+                                    SunFlower sunFlower = new SunFlower(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() + 10, grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH() + 20, finalRow, finalCol);
+                                    GameRoot.getInstance().loadSunNum();
+                                    GameState.getInstance().getPlantsClass().put(sunFlower.getImageView(), sunFlower);
+                                    GameRoot.getInstance().setPlantPlaced(finalRow, finalCol, true);
+                                    break;
+                                } else {
+                                    break;
+                                }
+                        }
                     }
+
 
                     selectedPlant = PlantType.NONE;
                 });
             }
 
             Timeline winChecker = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
-                if (GameState.getInstance().areAllZombiesSpawned()
-                        && GameState.getInstance().getZombies().isEmpty()) {
-
+                if (GameState.getInstance().areAllZombiesSpawned() && GameState.getInstance().getZombies().isEmpty()) {
                     TimelineManager.getInstance().stopAll();
-
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Victory");
                     alert.setHeaderText("Win");
@@ -252,11 +250,18 @@ public class LevelOneController implements Initializable {
         GameState.getInstance().setAllZombiesSpawned(true);
     }
 
+
     private void spawnZombie() {
         Random rand = new Random();
         int row = rand.nextInt(5);
         double startY = 200 + row * 100;
         NormalZombie zombie = new NormalZombie(startY);
     }
+
+
+
+
+
+
 
 }

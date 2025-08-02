@@ -8,8 +8,8 @@ public class ProductionPlant extends Plant{
     private int productionTime;
     private int destructionRate;
 
-    public ProductionPlant(int solarCost, String plantName , int productionTime, int destructionRate) {
-        super(solarCost, plantName);
+    public ProductionPlant(int solarCost, String plantName , int productionTime, int destructionRate , int x , int y) {
+        super(solarCost, plantName , x, y);
         this.productionTime = productionTime;
         this.destructionRate = destructionRate;
     }

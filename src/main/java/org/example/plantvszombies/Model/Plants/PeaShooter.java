@@ -12,8 +12,8 @@ import org.example.plantvszombies.Model.Game.TimelineManager;
 import org.example.plantvszombies.Model.WarriorPlant;
 
 public class PeaShooter extends WarriorPlant {
-    public PeaShooter(double row, double col) {
-        super(100, "PeaShooter", 10, 3, BulletType.Normal);
+    public PeaShooter(double row, double col , int x , int y) {
+        super(100, "PeaShooter", 10, 3, BulletType.Normal , x , y);
         Image image = new Image(getClass().getResource("/images/peaShooter.gif").toExternalForm());
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(70);

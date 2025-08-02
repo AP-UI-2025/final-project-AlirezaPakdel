@@ -43,15 +43,31 @@ public class GameRoot {
     private final int COLS = 9;
     private final int TILE_WIDTH = 80;
     private final int TILE_HEIGHT = 100;
+    private boolean[][] plantPlaced;
+
 
     Label sunLabel;
 
+    public boolean getPlantPlaced(int x, int y) {
+        return plantPlaced[x][y];
+    }
+
+    public void setPlantPlaced(int x , int y , boolean placed) {
+        plantPlaced[x][y] = placed;
+    }
 
     private static GameRoot instance;
 
     private Pane gamePane ;
 
-    private GameRoot() {}
+    private GameRoot() {
+        plantPlaced = new boolean[5][9];
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 9; j++) {
+                plantPlaced[i][j] = false;
+            }
+        }
+    }
 
     public static GameRoot getInstance() {
         if (instance == null) {

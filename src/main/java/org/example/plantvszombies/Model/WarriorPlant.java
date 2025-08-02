@@ -23,8 +23,8 @@ public class WarriorPlant extends Plant {
         this.shootTimeline = shootTimeline;
     }
 
-    public WarriorPlant(int solarCost, String plantName , int attackPower , int attackSpeed , BulletType bulletType) {
-        super(solarCost, plantName);
+    public WarriorPlant(int solarCost, String plantName , int attackPower , int attackSpeed , BulletType bulletType , int x , int y) {
+        super(solarCost, plantName , x, y);
         this.attackPower=attackPower;
         this.attackSpeed=attackSpeed;
         this.bulletType=bulletType;
@@ -60,6 +60,7 @@ public class WarriorPlant extends Plant {
                         hp--;
 
                         if (hp <= 0) {
+                            GameState.getInstance().getZombiesClass().get(zombie).die();
                             GameRoot.getInstance().getGamePane().getChildren().remove(zombie);
                             GameState.getInstance().getZombies().remove(zombie);
                         } else {

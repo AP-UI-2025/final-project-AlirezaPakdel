@@ -6,8 +6,8 @@ public class ExplosivePlant extends Plant {
     private DestructionType destructionType;
 
 
-    public ExplosivePlant(int solarCost, String plantName , int destructionPower, int destructionRange, DestructionType destructionType) {
-        super(solarCost, plantName);
+    public ExplosivePlant(int solarCost, String plantName , int destructionPower, int destructionRange, DestructionType destructionType , int x , int y ) {
+        super(solarCost, plantName , x, y);
         this.destructionPower = destructionPower;
         this.destructionRange = destructionRange;
         this.destructionType = destructionType;

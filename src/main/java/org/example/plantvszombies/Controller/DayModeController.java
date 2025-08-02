@@ -11,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.example.plantvszombies.HelloApplication;
-import org.example.plantvszombies.LevelOneApp;
 
 public class DayModeController {
 

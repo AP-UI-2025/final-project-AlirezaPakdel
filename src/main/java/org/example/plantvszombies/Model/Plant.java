@@ -12,11 +12,30 @@ public class Plant {
     private final int solarCost;
     private double row, col;
     private ImageView imageView;
+    private int x , y;
 
-    public Plant(int solarCost, String plantName) {
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Plant(int solarCost, String plantName , int x , int y) {
         allTimelines = new ArrayList<>();
         this.solarCost = solarCost;
         this.plantName = plantName;
+        this.x = x;
+        this.y = y;
     }
 
     public List<Timeline> getAllTimelines() {

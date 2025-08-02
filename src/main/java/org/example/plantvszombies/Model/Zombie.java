@@ -25,6 +25,20 @@ public class Zombie {
     private ImageView imageView;
     private Timeline moveTimeline;
     private boolean hasReachedHouse = false;
+    private Image image;
+    private Image eatImage;
+
+    public Image getImage() {
+        return image;
+    }
+
+    public Image getEatImage() {
+        return eatImage;
+    }
+
+    public void setEatImage(Image eatImage) {
+        this.eatImage = eatImage;
+    }
 
     public Zombie(int health, int speed, int damage) {
         this.health = health;
@@ -35,8 +49,8 @@ public class Zombie {
     public void startMoving() {
         moveTimeline = new Timeline(new KeyFrame(Duration.millis(100), e -> moveZombie()));
         moveTimeline.setCycleCount(Timeline.INDEFINITE);
-        TimelineManager.getInstance().add(moveTimeline);
         moveTimeline.play();
+        TimelineManager.getInstance().add(moveTimeline);
     }
 
     private void moveZombie() {
@@ -50,8 +64,7 @@ public class Zombie {
             if (imageView.getBoundsInParent().intersects(image.getBoundsInParent())) {
                 isEating = true;
                 moveTimeline.stop();
-                Image imageEat = new Image(getClass().getResource("/images/NormalEat.gif").toExternalForm());
-                setImage(imageEat);
+                setGifImageEat();
                 Timeline eat = new Timeline(new KeyFrame(Duration.seconds(speed) , event -> eatPlant(image)));
                 eat.setCycleCount(Timeline.INDEFINITE);
                 eat.play();
@@ -91,12 +104,17 @@ public class Zombie {
         }
     }
 
+    private void setGifImageEat() {
+        if (eatImage != null && imageView.getImage()!=eatImage) {
+            imageView.setImage(eatImage);
+        }
+    }
+
     private void eatPlant(ImageView plant) {
         Integer currentHP = GameState.getInstance().getPlantsHealth().get(plant);
 
         if (currentHP == null) {
-            Image image = new Image(getClass().getResource("/images/NormalZombie.gif").toExternalForm());
-            setImage(image);
+            setGifImage();
             moveTimeline.play();
             return;
         }
@@ -107,9 +125,10 @@ public class Zombie {
                 for (Timeline ti : GameState.getInstance().getPlantsClass().get(plant).getAllTimelines() ){
                     ti.stop();
                 }
-                Image image = new Image(getClass().getResource("/images/NormalZombie.gif").toExternalForm());
-                setImage(image);
+                setGifImage();
+                GameRoot.getInstance().setPlantPlaced(GameState.getInstance().getPlantsClass().get(plant).getX() , GameState.getInstance().getPlantsClass().get(plant).getY() , false);
                 GameState.getInstance().getPlants().remove(plant);
+                GameState.getInstance().getPlantsClass().remove(plant);
                 GameState.getInstance().getPlantsHealth().remove(plant);
                 GameRoot.getInstance().getGamePane().getChildren().remove(plant);
                 moveTimeline.play();
@@ -117,10 +136,14 @@ public class Zombie {
 
     }
 
-    private void setImage(Image image) {
-        if (imageView.getImage() != image) {
+    private void setGifImage() {
+        if (imageView.getImage() != image){
             imageView.setImage(image);
         }
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public void die() {
