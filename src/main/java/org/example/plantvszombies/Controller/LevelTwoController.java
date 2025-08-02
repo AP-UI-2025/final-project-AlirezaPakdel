@@ -109,7 +109,7 @@ public class LevelTwoController implements Initializable {
             selectedPlant = PlantType.SNOWPEA;
         });
 
-        plantBar.getChildren().addAll(peashooterIcon, sunflowerIcon);
+        plantBar.getChildren().addAll(peashooterIcon, sunflowerIcon , repeaterIcon , snowPeaIcon);
         gamePane.getChildren().add(plantBar);
 
 
@@ -196,7 +196,7 @@ public class LevelTwoController implements Initializable {
                     alert.setContentText("All Zombies have been dead");
                     alert.show();
                     PlayerController.increaseWins(HelloController.logInPlayer.getUserName());
-                    if (HelloController.logInPlayer.getLevel()==0) {
+                    if (HelloController.logInPlayer.getLevel()==1) {
                         PlayerController.increaseLevel(HelloController.logInPlayer.getUserName());
                     }
                     HelloController.logInPlayer=PlayerController.LogIn(HelloController.logInPlayer.getUserName() , HelloController.logInPlayer.getPassword());
@@ -294,11 +294,9 @@ public class LevelTwoController implements Initializable {
     private void spawnFinalWave(int waveNum) {
         System.out.println(" Final Wave " + (waveNum - zombiesPerWave.length + 1));
 
-        for (int i = 0; i < 5; i++) {
             int row = new Random().nextInt(5);
             double startY = 200 + row * 100;
             FlagZombie flagZombie = new FlagZombie(startY);
-        }
 
         Timeline spawner = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> {
             spawnZombie();

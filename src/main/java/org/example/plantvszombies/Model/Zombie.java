@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.example.plantvszombies.Controller.HelloController;
@@ -58,7 +59,9 @@ public class Zombie {
     }
 
     private void moveZombie() {
-        if (GameState.getInstance().getZombiesHealth().get(imageView) <= 0) {
+
+        Integer zombieHP = GameState.getInstance().getZombiesHealth().get(imageView);
+        if (zombieHP == null || zombieHP <= 0) {
             die();
             return;
         }
@@ -85,28 +88,32 @@ public class Zombie {
         if ( imageView.getLayoutX() + 950 < 0) {
             if (!hasReachedHouse) {
                 hasReachedHouse = true;
-                System.out.println("Zombie reached the house. Game Over!" + imageView.getLayoutX());
-                TimelineManager.getInstance().stopAll();
-                PlayerController.increaseLoses(HelloController.logInPlayer.getUserName());
-                HelloController.logInPlayer = PlayerController.LogIn(HelloController.logInPlayer.getUserName(), HelloController.logInPlayer.getPassword());
+                if (!GameState.isIsGameOver()) {
+                    GameState.getInstance().setIsGameOver(true);
+                    System.out.println("Zombie reached the house. Game Over!" + imageView.getLayoutX());
+                    TimelineManager.getInstance().stopAll();
+                    PlayerController.increaseLoses(HelloController.logInPlayer.getUserName());
+                    HelloController.logInPlayer = PlayerController.LogIn(HelloController.logInPlayer.getUserName(), HelloController.logInPlayer.getPassword());
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Zombie");
-                alert.setHeaderText("Zombie reached!");
-                alert.setContentText("You Dead");
-                alert.show();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Zombie");
+                    alert.setHeaderText("Zombie reached!");
+                    alert.setContentText("You Dead");
+                    alert.show();
 
-                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("HomePageView.fxml"));
-                Scene scene;
-                try {
-                    scene = new Scene(loader.load());
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-                Stage stage = (Stage) GameRoot.getInstance().getGamePane().getScene().getWindow();
-                if (scene != null) {
-                    stage.setScene(scene);
-                    stage.show();
+                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("HomePageView.fxml"));
+                    Scene scene;
+                    try {
+                        scene = new Scene(loader.load());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Stage stage = (Stage) GameRoot.getInstance().getGamePane().getScene().getWindow();
+
+                    if (scene != null) {
+                        stage.setScene(scene);
+                        stage.show();
+                    }
                 }
             }
         }

@@ -22,6 +22,15 @@ public class GameState {
     private Map<ImageView , Plant> plantsClass = new HashMap<>();
     private Map<ImageView , Zombie > zombiesClass = new HashMap<>();
     private boolean allZombiesSpawned = false;
+    private static boolean isGameOver ;
+
+    public static boolean isIsGameOver() {
+        return isGameOver;
+    }
+
+    public static void setIsGameOver(boolean isGameOver) {
+        GameState.isGameOver = isGameOver;
+    }
 
     public Map<ImageView, Zombie> getZombiesClass() {
         return zombiesClass;
@@ -39,7 +48,9 @@ public class GameState {
         allZombiesSpawned = value;
     }
 
-    private GameState() {}
+    private GameState() {
+        isGameOver = false;
+    }
     public static void NewGameState(){
         instance = new GameState();
     }

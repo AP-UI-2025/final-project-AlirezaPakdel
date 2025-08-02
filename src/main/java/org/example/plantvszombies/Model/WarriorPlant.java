@@ -86,7 +86,7 @@ public class WarriorPlant extends Plant {
             pea.setFitWidth(20);
             pea.setFitHeight(20);
             pea.setLayoutX(getCol()+5);
-            pea.setLayoutY(getRow() - 15);
+            pea.setLayoutY(getRow() - 10);
             GameRoot.getInstance().getGamePane().getChildren().add(pea);
 
             final boolean[] hit = {false};
@@ -105,21 +105,21 @@ public class WarriorPlant extends Plant {
                         Zombie z = GameState.getInstance().getZombiesClass().get(zombie);
                         Timeline ztime = z.getMoveTimeline();
                         double currentRate = ztime.getRate();
-                        if (currentRate > z.getSpeed()/2) {
-                            ztime.setRate(currentRate/2);
+                        if (currentRate > 1) {
+                            ztime.setRate(1);
                         }
 
                         ColorAdjust blueEffect = new ColorAdjust();
                         blueEffect.setHue(-0.5);
                         z.getImageView().setEffect(blueEffect);
                         Timeline removeEffect = new Timeline(
-                                new KeyFrame(Duration.seconds(3), ee -> zombie.setEffect(null))
+                                new KeyFrame(Duration.seconds(6), ee -> zombie.setEffect(null))
                         );
                         removeEffect.setCycleCount(1);
                         removeEffect.play();
 
 
-                        Timeline slowTimer = new Timeline(new KeyFrame(Duration.seconds(3), eee -> {
+                        Timeline slowTimer = new Timeline(new KeyFrame(Duration.seconds(6), eee -> {
                             Timeline timeline = z.getMoveTimeline();
                             if (timeline != null) {
                                 timeline.setRate(z.getSpeed());

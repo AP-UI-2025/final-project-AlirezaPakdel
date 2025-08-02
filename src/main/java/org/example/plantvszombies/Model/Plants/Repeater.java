@@ -13,7 +13,7 @@ import org.example.plantvszombies.Model.WarriorPlant;
 
 public class Repeater extends WarriorPlant {
     public Repeater(double row, double col , int x, int y) {
-        super(200, "Repeater", 10, 2, BulletType.Normal, x, y);
+        super(200, "Repeater", 10, 5, BulletType.Normal, x, y);
         Image image = new Image(getClass().getResource("/images/repeater.gif").toExternalForm());
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(70);
@@ -43,7 +43,7 @@ public class Repeater extends WarriorPlant {
 
             if (zombieInRow) {
                 if (super.getShootTimeline() == null) {
-                    Timeline sh = new Timeline(new KeyFrame(Duration.seconds(0.5) , er ->{
+                    Timeline sh = new Timeline(new KeyFrame(Duration.seconds(0.1) , er ->{
                         startShooting();
                     }));
                     sh.setCycleCount(2);
