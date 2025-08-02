@@ -19,8 +19,8 @@ public class LawnMower {
     public LawnMower(double x, double y) {
         Image image = new Image(getClass().getResource("/images/LawnMower.png").toExternalForm());
         imageView = new ImageView(image);
-        imageView.setFitWidth(80);
-        imageView.setFitHeight(80);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
         imageView.setLayoutX(x);
         imageView.setLayoutY(y);
         GameRoot.getInstance().getGamePane().getChildren().add(imageView);
