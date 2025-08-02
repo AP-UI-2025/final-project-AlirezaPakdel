@@ -1,0 +1,369 @@
+package org.example.plantvszombies.Controller;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.example.plantvszombies.HelloApplication;
+import org.example.plantvszombies.Model.Game.GameRoot;
+import org.example.plantvszombies.Model.Game.GameState;
+import org.example.plantvszombies.Model.Game.TimelineManager;
+import org.example.plantvszombies.Model.Plants.*;
+import org.example.plantvszombies.Model.Zombies.ConeHeadZombie;
+import org.example.plantvszombies.Model.Zombies.FlagZombie;
+import org.example.plantvszombies.Model.Zombies.NormalZombie;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Random;
+import java.util.ResourceBundle;
+
+public class LevelThreeController implements Initializable {
+
+    private int currentWave = 0;
+    private final int totalWaves = 4;
+    private final int[] zombiesPerWave = {2, 4 , 6};
+
+    @FXML
+    private Pane gamePane;
+
+    @FXML
+    private ImageView background;
+    private enum PlantType {SNOWPEA , REPEATER ,  PEASHOOTER, SUNFLOWER , WALLNUT , CHERRYBOMB , NONE}
+    private PlantType selectedPlant = PlantType.NONE;
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        background.setImage(new Image(getClass().getResource("/images/DayBackground.png").toExternalForm()));
+        GameRoot.setInstance();
+        GameState.NewGameState();
+        GameRoot.getInstance().setGamePane(gamePane);
+
+        Label waveLabel = new Label("Remaining Waves : 3");
+        waveLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        waveLabel.setTextFill(Color.WHITE);
+        waveLabel.setText("Remaining Waves : 3");
+        waveLabel.setLayoutX(900);
+        waveLabel.setLayoutY(40);
+
+        GameRoot.getInstance().getGamePane().getChildren().add(waveLabel);
+
+
+
+        HBox plantBar = new HBox(20);
+        plantBar.setLayoutX(250);
+        plantBar.setLayoutY(30);
+        plantBar.setPrefHeight(30);
+        plantBar.setStyle("-fx-background-color: #dfd360;");
+
+
+        Image peashooterImage = new Image(getClass().getResource("/images/PeashooterSeedPacket.png").toExternalForm());
+        ImageView peashooterIcon = new ImageView(peashooterImage);
+        peashooterIcon.setFitWidth(50);
+        peashooterIcon.setFitHeight(70);
+        peashooterIcon.setOnMouseClicked(e -> {
+            selectedPlant = PlantType.PEASHOOTER;
+        });
+
+        Image sunflowerImage = new Image(getClass().getResource("/images/SunflowerSeedPacket.png").toExternalForm());
+        ImageView sunflowerIcon = new ImageView(sunflowerImage);
+        sunflowerIcon.setFitWidth(50);
+        sunflowerIcon.setFitHeight(70);
+        sunflowerIcon.setOnMouseClicked(e -> {
+            selectedPlant = PlantType.SUNFLOWER;
+        });
+
+        Image repeaterImage = new Image(getClass().getResource("/images/repeater_Card.jpg").toExternalForm());
+        ImageView repeaterIcon = new ImageView(repeaterImage);
+        repeaterIcon.setFitWidth(50);
+        repeaterIcon.setFitHeight(70);
+        repeaterIcon.setOnMouseClicked(e -> {
+            selectedPlant = PlantType.REPEATER;
+        });
+
+        Image snowPeaImage = new Image(getClass().getResource("/images/SnowPeaCard.png").toExternalForm());
+        ImageView snowPeaIcon = new ImageView(snowPeaImage);
+        snowPeaIcon.setFitWidth(50);
+        snowPeaIcon.setFitHeight(70);
+        snowPeaIcon.setOnMouseClicked(e -> {
+            selectedPlant = PlantType.SNOWPEA;
+        });
+
+        Image cherryBombImage = new Image(getClass().getResource("/images/Gilas.png").toExternalForm());
+        ImageView cherryBombIcon = new ImageView(cherryBombImage);
+        snowPeaIcon.setFitWidth(50);
+        snowPeaIcon.setFitHeight(70);
+        snowPeaIcon.setOnMouseClicked(e -> {
+            selectedPlant = PlantType.CHERRYBOMB;
+        });
+
+        Image wallNutImage = new Image(getClass().getResource("/images/wallnutCart.png").toExternalForm());
+        ImageView wallNutIcon = new ImageView(wallNutImage);
+        snowPeaIcon.setFitWidth(50);
+        snowPeaIcon.setFitHeight(70);
+        snowPeaIcon.setOnMouseClicked(e -> {
+            selectedPlant = PlantType.WALLNUT;
+        });
+
+        plantBar.getChildren().addAll(peashooterIcon, sunflowerIcon , repeaterIcon , snowPeaIcon , cherryBombIcon , wallNutIcon);
+        gamePane.getChildren().add(plantBar);
+
+
+        GridPane grid = new GridPane();
+        grid.setLayoutX(220);
+        grid.setLayoutY(220);
+        //grid.setStyle("-fx-border-color: #81782a;");
+        gamePane.getChildren().add(grid);
+        for (int row = 0; row < GameRoot.getInstance().getROWS(); row++) {
+            for (int col = 0; col < GameRoot.getInstance().getCOLS(); col++) {
+                Rectangle tile = new Rectangle(GameRoot.getInstance().getTILE_WIDTH(), GameRoot.getInstance().getTILE_HEIGHT());
+                tile.setFill(Color.rgb(0, 0, 0, 0));
+                grid.add(tile, col, row);
+                //tile.setStroke(Color.DARKGREEN);
+                int finalRow = row;
+                int finalCol = col;
+
+                tile.setOnMouseClicked(e -> {
+                    if (selectedPlant == PlantType.NONE) {
+                        return;
+                    }
+                    double tileX = grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() +10;
+                    double tileY = grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH()+20;
+                    if (!GameRoot.getInstance().getPlantPlaced(finalRow, finalCol)) {
+                        switch (selectedPlant) {
+                            case PEASHOOTER:
+                                if (GameState.getInstance().getSunPoints() >= 100) {
+                                    GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints() - 100);
+                                    PeaShooter peaShooter = new PeaShooter(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() + 10, grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH() + 20, finalRow, finalCol);
+                                    GameRoot.getInstance().loadSunNum();
+                                    GameState.getInstance().getPlantsClass().put(peaShooter.getImageView(), peaShooter);
+                                    GameRoot.getInstance().setPlantPlaced(finalRow, finalCol, true);
+                                    break;
+                                } else {
+                                    break;
+                                }
+                            case SUNFLOWER:
+                                if (GameState.getInstance().getSunPoints() >= 50) {
+                                    GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints() - 50);
+                                    SunFlower sunFlower = new SunFlower(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() + 10, grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH() + 20, finalRow, finalCol);
+                                    GameRoot.getInstance().loadSunNum();
+                                    GameState.getInstance().getPlantsClass().put(sunFlower.getImageView(), sunFlower);
+                                    GameRoot.getInstance().setPlantPlaced(finalRow, finalCol, true);
+                                    break;
+                                } else {
+                                    break;
+                                }
+                            case SNOWPEA:
+                                if (GameState.getInstance().getSunPoints() >= 175) {
+                                    GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints() - 175);
+                                    SnowPea snowPea = new SnowPea(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() + 10, grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH() + 20, finalRow, finalCol);
+                                    GameRoot.getInstance().loadSunNum();
+                                    GameState.getInstance().getPlantsClass().put(snowPea.getImageView(), snowPea);
+                                    GameRoot.getInstance().setPlantPlaced(finalRow, finalCol, true);
+                                    break;
+                                }else {
+                                    break;
+                                }
+                            case REPEATER:
+                                if (GameState.getInstance().getSunPoints() >= 200) {
+                                    GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints() - 200);
+                                    Repeater repeater = new Repeater(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() + 10, grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH() + 20, finalRow, finalCol);
+                                    GameRoot.getInstance().loadSunNum();
+                                    GameState.getInstance().getPlantsClass().put(repeater.getImageView(), repeater);
+                                    GameRoot.getInstance().setPlantPlaced(finalRow, finalCol, true);
+                                    break;
+                                }else {
+                                    break;
+                                }
+                            case WALLNUT:
+                                if (GameState.getInstance().getSunPoints() >= 50) {
+                                    GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints() - 50);
+                                    WallNut wallNut = new WallNut(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() + 10, grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH() + 20, finalRow, finalCol);
+                                    GameRoot.getInstance().loadSunNum();
+                                    GameState.getInstance().getPlantsClass().put(wallNut.getImageView(), wallNut);
+                                    GameRoot.getInstance().setPlantPlaced(finalRow, finalCol, true);
+                                    break;
+                                }else{
+                                    break;
+                                }
+                            case CHERRYBOMB:
+                                if (GameState.getInstance().getSunPoints() >= 150) {
+                                    GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints() - 150);
+                                    CherryBomb cherryBomb = new CherryBomb(grid.getLayoutY() + finalRow * GameRoot.getInstance().getTILE_HEIGHT() + 10, grid.getLayoutX() + finalCol * GameRoot.getInstance().getTILE_WIDTH() + 20, finalRow, finalCol);
+                                    GameRoot.getInstance().loadSunNum();
+                                    GameRoot.getInstance().setPlantPlaced(finalRow, finalCol, true);
+                                    break;
+                                }else{
+                                    break;
+                                }
+                        }
+                    }
+
+
+                    selectedPlant = PlantType.NONE;
+                });
+            }
+
+            Timeline winChecker = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+                if (GameState.getInstance().areAllZombiesSpawned() && GameState.getInstance().getZombies().isEmpty()) {
+                    TimelineManager.getInstance().stopAll();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Victory");
+                    alert.setHeaderText("Win");
+                    alert.setContentText("All Zombies have been dead");
+                    alert.show();
+                    PlayerController.increaseWins(HelloController.logInPlayer.getUserName());
+                    if (HelloController.logInPlayer.getLevel()==1) {
+                        PlayerController.increaseLevel(HelloController.logInPlayer.getUserName());
+                    }
+                    HelloController.logInPlayer=PlayerController.LogIn(HelloController.logInPlayer.getUserName() , HelloController.logInPlayer.getPassword());
+                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("HomePageView.fxml"));
+                    Scene scene;
+                    try {
+                        scene = new Scene(loader.load());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Stage stage = (Stage) gamePane.getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            }));
+            winChecker.setCycleCount(Timeline.INDEFINITE);
+            winChecker.play();
+            TimelineManager.getInstance().add(winChecker);
+        }
+
+        Timeline fallingSuns = new Timeline(new KeyFrame(Duration.seconds(7), e -> {
+            spawnFallingSun();
+        }));
+        fallingSuns.setCycleCount(Timeline.INDEFINITE);
+        fallingSuns.play();
+
+
+
+        startWaves();
+
+    }
+
+    private void spawnFallingSun() {
+        Image sunImg = new Image(getClass().getResource("/images/sun.png").toExternalForm());
+        ImageView sun = new ImageView(sunImg);
+        sun.setFitWidth(40);
+        sun.setFitHeight(40);
+
+
+        Random rand = new Random();
+        double startX = 260 + rand.nextInt(800);
+        sun.setLayoutX(startX);
+        sun.setLayoutY(-50);
+
+        GameRoot.getInstance().getGamePane().getChildren().add(sun);
+
+
+        Timeline fall = new Timeline(new KeyFrame(Duration.millis(20), e -> {
+            sun.setLayoutY(sun.getLayoutY() + 2);
+
+            if (sun.getLayoutY() >= 700) {
+                GameRoot.getInstance().getGamePane().getChildren().remove(sun);
+            }
+        }));
+        fall.setCycleCount(Timeline.INDEFINITE);
+        fall.play();
+
+
+        sun.setOnMouseClicked(e -> {
+            GameRoot.getInstance().getGamePane().getChildren().remove(sun);
+            GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints()+25);
+            GameRoot.getInstance().loadSunNum();
+            fall.stop();
+        });
+    }
+
+
+    private void startWaves() {
+        Timeline waveTimeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
+            if (currentWave < zombiesPerWave.length) {
+                spawnWave(currentWave);
+            } else {
+                spawnFinalWave(currentWave);
+            }
+            currentWave++;
+        }));
+        waveTimeline.setCycleCount(zombiesPerWave.length + 2);
+        waveTimeline.play();
+        TimelineManager.getInstance().getTimelines().add(waveTimeline);
+    }
+
+
+
+    private void spawnWave(int waveIndex) {
+        int zombiesToSpawn = zombiesPerWave[waveIndex];
+        Timeline spawner = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            spawnZombie();
+            spawnConeHeadZombie();
+        }));
+        spawner.setCycleCount(zombiesToSpawn);
+        spawner.play();
+        TimelineManager.getInstance().getTimelines().add(spawner);
+    }
+
+    private void spawnFinalWave(int waveNum) {
+        System.out.println(" Final Wave " + (waveNum - zombiesPerWave.length + 1));
+
+        int row = new Random().nextInt(5);
+        double startY = 200 + row * 100;
+        FlagZombie flagZombie = new FlagZombie(startY);
+
+        Timeline spawner = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> {
+            spawnZombie();
+            spawnConeHeadZombie();
+        }));
+        spawner.setCycleCount(6 + waveNum * 2);
+        spawner.play();
+        TimelineManager.getInstance().getTimelines().add(spawner);
+
+        if (waveNum == zombiesPerWave.length + 1) {
+            GameState.getInstance().setAllZombiesSpawned(true);
+        }
+    }
+
+
+
+    private void spawnZombie() {
+        Random rand = new Random();
+        int row = rand.nextInt(5);
+        double startY = 200 + row * 100;
+        NormalZombie zombie = new NormalZombie(startY);
+    }
+    private void spawnConeHeadZombie() {
+        Random rand = new Random();
+        int row = rand.nextInt(5);
+        double startY = 200 + row * 100;
+        ConeHeadZombie zombie = new ConeHeadZombie(startY);
+    }
+
+
+
+
+
+
+
+}
