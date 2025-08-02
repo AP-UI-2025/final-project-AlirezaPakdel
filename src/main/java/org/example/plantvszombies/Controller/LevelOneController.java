@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -15,6 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.example.plantvszombies.HelloApplication;
@@ -52,6 +55,16 @@ public class LevelOneController implements Initializable {
         GameRoot.setInstance();
         GameState.NewGameState();
         GameRoot.getInstance().setGamePane(gamePane);
+
+        Label waveLabel = new Label("Remaining Waves : 1");
+        waveLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        waveLabel.setTextFill(Color.WHITE);
+        waveLabel.setText("Remaining Waves : 1");
+        waveLabel.setLayoutX(900);
+        waveLabel.setLayoutY(20);
+
+        GameRoot.getInstance().getGamePane().getChildren().add(waveLabel);
+
 
 
         HBox plantBar = new HBox(20);
