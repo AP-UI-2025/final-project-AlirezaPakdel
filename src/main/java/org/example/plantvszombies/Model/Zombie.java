@@ -28,6 +28,10 @@ public class Zombie {
     private Image image;
     private Image eatImage;
 
+    public Timeline getMoveTimeline() {
+        return moveTimeline;
+    }
+
     public Image getImage() {
         return image;
     }

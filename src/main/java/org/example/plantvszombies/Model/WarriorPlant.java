@@ -8,6 +8,11 @@ import javafx.util.Duration;
 import org.example.plantvszombies.Model.Game.GameRoot;
 import org.example.plantvszombies.Model.Game.GameState;
 import org.example.plantvszombies.Model.Game.TimelineManager;
+import javafx.scene.effect.ColorAdjust;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+import javafx.scene.image.ImageView;
 
 public class WarriorPlant extends Plant {
     private int attackPower;
@@ -97,7 +102,34 @@ public class WarriorPlant extends Plant {
                         hit[0] = true;
                         GameRoot.getInstance().getGamePane().getChildren().remove(pea);
 
-                        //low zombie speed
+                        Zombie z = GameState.getInstance().getZombiesClass().get(zombie);
+                        Timeline ztime = z.getMoveTimeline();
+                        double currentRate = ztime.getRate();
+                        if (currentRate > z.getSpeed()/2) {
+                            ztime.setRate(currentRate/2);
+                        }
+
+                        ColorAdjust blueEffect = new ColorAdjust();
+                        blueEffect.setHue(-0.5);
+                        z.getImageView().setEffect(blueEffect);
+                        Timeline removeEffect = new Timeline(
+                                new KeyFrame(Duration.seconds(3), ee -> zombie.setEffect(null))
+                        );
+                        removeEffect.setCycleCount(1);
+                        removeEffect.play();
+
+
+                        Timeline slowTimer = new Timeline(new KeyFrame(Duration.seconds(3), eee -> {
+                            Timeline timeline = z.getMoveTimeline();
+                            if (timeline != null) {
+                                timeline.setRate(z.getSpeed());
+                            }
+                        }));
+                        slowTimer.setCycleCount(1);
+                        slowTimer.play();
+
+
+
 
                         int hp = GameState.getInstance().getZombiesHealth().get(zombie);
                         hp--;
