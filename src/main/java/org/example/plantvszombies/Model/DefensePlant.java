@@ -30,8 +30,10 @@ public class DefensePlant extends Plant {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e->{
             if (this.scondImage != null) {
                 if (super.getImageView().getImage() != this.scondImage) {
-                    if (GameState.getInstance().getPlantsHealth().get(super.getImageView().getImage()) <= 25) {
-                        super.getImageView().setImage(scondImage);
+                    if (GameState.getInstance().getPlantsHealth().get(super.getImageView()) <= 25) {
+                        if (super.getImageView().getImage() != this.scondImage) {
+                            super.getImageView().setImage(scondImage);
+                        }
                     }
                 }
             }

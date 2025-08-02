@@ -21,7 +21,7 @@ public class WallNut extends DefensePlant {
         imageView.setPreserveRatio(true);
         super.setImageView(imageView);
         GameState.getInstance().getPlants().add(imageView);
-        GameState.getInstance().getPlantsHealth().put(imageView, 5);
+        GameState.getInstance().getPlantsHealth().put(imageView, 50);
         setCol(col);
         setRow(row);
     }
