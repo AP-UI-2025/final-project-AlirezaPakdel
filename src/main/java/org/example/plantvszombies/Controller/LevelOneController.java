@@ -61,7 +61,7 @@ public class LevelOneController implements Initializable {
         waveLabel.setTextFill(Color.WHITE);
         waveLabel.setText("Remaining Waves : 1");
         waveLabel.setLayoutX(900);
-        waveLabel.setLayoutY(20);
+        waveLabel.setLayoutY(40);
 
         GameRoot.getInstance().getGamePane().getChildren().add(waveLabel);
 
