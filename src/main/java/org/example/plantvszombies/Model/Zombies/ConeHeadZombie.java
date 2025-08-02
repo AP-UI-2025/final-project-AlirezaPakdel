@@ -6,12 +6,12 @@ import org.example.plantvszombies.Model.Game.GameRoot;
 import org.example.plantvszombies.Model.Game.GameState;
 import org.example.plantvszombies.Model.ResistantZombie;
 
-public class NormalZombie extends ResistantZombie {
-    public NormalZombie(double y) {
-        super(5, 2, 1);
-        Image image = new Image(getClass().getResource("/images/NormalZombie.gif").toExternalForm());
-        Image imageEat = new Image(getClass().getResource("/images/NormalEat.gif").toExternalForm());
-        super.setEatImage(imageEat);
+public class ConeHeadZombie extends ResistantZombie {
+    public ConeHeadZombie(double y) {
+        super(10, 2, 1);
+        Image image = new Image(getClass().getResource("/images/coneheadZombie.gif").toExternalForm());
+        //Image imageEat = new Image(getClass().getResource("/images/NormalEat.gif").toExternalForm());
+        //super.setEatImage(imageEat);
         super.setImage(image);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(120);

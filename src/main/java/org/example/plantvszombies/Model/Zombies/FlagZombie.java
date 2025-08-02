@@ -9,7 +9,7 @@ import org.example.plantvszombies.Model.SpecialZombie;
 
 public class FlagZombie extends SpecialZombie {
     public FlagZombie(double y) {
-        super(10, 2, 2, SpecialAbility.Fast);
+        super(10, 3, 2, SpecialAbility.Fast);
         Image image = new Image(getClass().getResource("/images/flagZombie.gif").toExternalForm());
         super.setImage(image);
         ImageView imageView = new ImageView(image);
