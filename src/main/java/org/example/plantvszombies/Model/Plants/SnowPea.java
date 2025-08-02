@@ -13,7 +13,7 @@ import org.example.plantvszombies.Model.WarriorPlant;
 
 public class SnowPea extends WarriorPlant {
     public SnowPea(double row, double col , int x, int y) {
-        super(175 , "SnowPea", 1, 8 , BulletType.Snowy , x, y);
+        super(175 , "SnowPea", 1, 5 , BulletType.Snowy , x, y);
         Image image = new Image(getClass().getResource("/images/SnowPea.gif").toExternalForm());
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(70);
