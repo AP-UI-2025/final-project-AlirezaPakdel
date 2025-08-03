@@ -37,8 +37,8 @@ import java.util.ResourceBundle;
 public class LevelThreeController implements Initializable {
 
     private int currentWave = 0;
-    private final int totalWaves = 4;
-    private final int[] zombiesPerWave = {2, 4 , 6};
+    private final int totalWaves = 5;
+    private final int[] zombiesPerWave = {2 , 4 , 6};
 
     @FXML
     private Pane gamePane;
@@ -47,6 +47,8 @@ public class LevelThreeController implements Initializable {
     private ImageView background;
     private enum PlantType {SNOWPEA , REPEATER ,  PEASHOOTER, SUNFLOWER , WALLNUT , CHERRYBOMB , NONE}
     private PlantType selectedPlant = PlantType.NONE;
+    private Label waveLabel = new Label("Remaining Waves : 3");
+
 
 
     @Override
@@ -56,7 +58,6 @@ public class LevelThreeController implements Initializable {
         GameState.NewGameState();
         GameRoot.getInstance().setGamePane(gamePane);
 
-        Label waveLabel = new Label("Remaining Waves : 3");
         waveLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         waveLabel.setTextFill(Color.WHITE);
         waveLabel.setText("Remaining Waves : 3");
@@ -230,7 +231,7 @@ public class LevelThreeController implements Initializable {
                     alert.setContentText("All Zombies have been dead");
                     alert.show();
                     PlayerController.increaseWins(HelloController.logInPlayer.getUserName());
-                    if (HelloController.logInPlayer.getLevel()==1) {
+                    if (HelloController.logInPlayer.getLevel()==2) {
                         PlayerController.increaseLevel(HelloController.logInPlayer.getUserName());
                     }
                     HelloController.logInPlayer=PlayerController.LogIn(HelloController.logInPlayer.getUserName() , HelloController.logInPlayer.getPassword());
@@ -301,13 +302,13 @@ public class LevelThreeController implements Initializable {
     private void startWaves() {
         Timeline waveTimeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
             if (currentWave < zombiesPerWave.length) {
-                spawnWave(currentWave);
+                spawnWave(zombiesPerWave[currentWave]);
             } else {
                 spawnFinalWave(currentWave);
             }
             currentWave++;
         }));
-        waveTimeline.setCycleCount(zombiesPerWave.length + 2);
+        waveTimeline.setCycleCount(totalWaves);
         waveTimeline.play();
         TimelineManager.getInstance().getTimelines().add(waveTimeline);
     }
@@ -327,7 +328,7 @@ public class LevelThreeController implements Initializable {
 
     private void spawnFinalWave(int waveNum) {
         System.out.println(" Final Wave " + (waveNum - zombiesPerWave.length + 1));
-
+        waveLabel.setText(" Final Wave " + (4-waveNum));
         int row = new Random().nextInt(5);
         double startY = 200 + row * 100;
         FlagZombie flagZombie = new FlagZombie(startY);
@@ -336,7 +337,7 @@ public class LevelThreeController implements Initializable {
             spawnZombie();
             spawnConeHeadZombie();
         }));
-        spawner.setCycleCount(6 + waveNum * 2);
+        spawner.setCycleCount(10 + waveNum );
         spawner.play();
         TimelineManager.getInstance().getTimelines().add(spawner);
 
