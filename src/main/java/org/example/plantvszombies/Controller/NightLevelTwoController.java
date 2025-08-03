@@ -51,7 +51,7 @@ public class NightLevelTwoController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        background.setImage(new Image(getClass().getResource("/images/DayBackground.png").toExternalForm()));
+        background.setImage(new Image(getClass().getResource("/images/NightBackground.png").toExternalForm()));
         GameRoot.setInstance();
         GameState.NewGameState();
         GameRoot.getInstance().setGamePane(gamePane);
@@ -189,7 +189,7 @@ public class NightLevelTwoController implements Initializable {
                     alert.setContentText("All Zombies have been dead");
                     alert.show();
                     PlayerController.increaseWins(HelloController.logInPlayer.getUserName());
-                    if (HelloController.logInPlayer.getLevel()==1) {
+                    if (HelloController.logInPlayer.getLevel()==4) {
                         PlayerController.increaseLevel(HelloController.logInPlayer.getUserName());
                     }
                     HelloController.logInPlayer=PlayerController.LogIn(HelloController.logInPlayer.getUserName() , HelloController.logInPlayer.getPassword());

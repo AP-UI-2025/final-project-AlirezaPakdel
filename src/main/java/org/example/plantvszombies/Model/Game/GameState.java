@@ -14,7 +14,7 @@ import java.util.Map;
 public class GameState {
     private static GameState instance ;
 
-    private int sunPoints = 50;
+    private int sunPoints = 5000;
     private List<ImageView> zombies = new ArrayList<>();
     private List<ImageView> plants = new ArrayList<>();
     private Map<ImageView, Integer> plantsHealth = new HashMap<>();
