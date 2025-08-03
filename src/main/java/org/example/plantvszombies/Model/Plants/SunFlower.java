@@ -13,7 +13,7 @@ import org.example.plantvszombies.Model.Sun;
 
 public class SunFlower extends ProductionPlant {
     public SunFlower(double row, double col , int x , int y) {
-        super(50, "SunFlower", 5, 25 , x , y);
+        super(50, "SunFlower", 15, 25 , x , y);
         Image image = new Image(getClass().getResource("/images/sunflower-pvz.gif").toExternalForm());
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(70);

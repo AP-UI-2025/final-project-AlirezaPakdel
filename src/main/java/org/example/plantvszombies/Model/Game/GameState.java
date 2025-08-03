@@ -19,6 +19,7 @@ public class GameState {
     private List<ImageView> plants = new ArrayList<>();
     private Map<ImageView, Integer> plantsHealth = new HashMap<>();
     private Map<ImageView, Integer> zombiesHealth = new HashMap<>();
+    private Map<ImageView, Integer> screenDoorZombiesHealth = new HashMap<>();
     private Map<ImageView , Plant> plantsClass = new HashMap<>();
     private Map<ImageView , Zombie > zombiesClass = new HashMap<>();
     private boolean allZombiesSpawned = false;
@@ -26,6 +27,14 @@ public class GameState {
 
     public static boolean isIsGameOver() {
         return isGameOver;
+    }
+
+    public Map<ImageView, Integer> getScreenDoorZombiesHealth() {
+        return screenDoorZombiesHealth;
+    }
+
+    public void setScreenDoorZombiesHealth(Map<ImageView, Integer> screenDoorZombiesHealth) {
+        this.screenDoorZombiesHealth = screenDoorZombiesHealth;
     }
 
     public static void setIsGameOver(boolean isGameOver) {
