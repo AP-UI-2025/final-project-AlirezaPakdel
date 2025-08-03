@@ -175,52 +175,13 @@ public class NightLevelOneController implements Initializable {
 
         }
 
-        Timeline fallingSuns = new Timeline(new KeyFrame(Duration.seconds(7), e -> {
-            spawnFallingSun();
-        }));
-        fallingSuns.setCycleCount(Timeline.INDEFINITE);
-        fallingSuns.play();
+
 
 
 
         startWaves();
 
     }
-
-    private void spawnFallingSun() {
-        Image sunImg = new Image(getClass().getResource("/images/sun.png").toExternalForm());
-        ImageView sun = new ImageView(sunImg);
-        sun.setFitWidth(40);
-        sun.setFitHeight(40);
-
-
-        Random rand = new Random();
-        double startX = 260 + rand.nextInt(800);
-        sun.setLayoutX(startX);
-        sun.setLayoutY(-50);
-
-        GameRoot.getInstance().getGamePane().getChildren().add(sun);
-
-
-        Timeline fall = new Timeline(new KeyFrame(Duration.millis(20), e -> {
-            sun.setLayoutY(sun.getLayoutY() + 2);
-
-            if (sun.getLayoutY() >= 700) {
-                GameRoot.getInstance().getGamePane().getChildren().remove(sun);
-            }
-        }));
-        fall.setCycleCount(Timeline.INDEFINITE);
-        fall.play();
-
-
-        sun.setOnMouseClicked(e -> {
-            GameRoot.getInstance().getGamePane().getChildren().remove(sun);
-            GameState.getInstance().setSunPoints(GameState.getInstance().getSunPoints()+25);
-            GameRoot.getInstance().loadSunNum();
-            fall.stop();
-        });
-    }
-
 
     private void startWaves() {
         Timeline waveTimeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {

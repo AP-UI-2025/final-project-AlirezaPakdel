@@ -66,7 +66,12 @@ public class NightModeController {
 
     }
 
-    public void mission1(MouseEvent mouseEvent) {
+    public void mission1(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("NightLevelOneView.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) BackBtn.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void mission2(MouseEvent mouseEvent) {

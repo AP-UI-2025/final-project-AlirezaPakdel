@@ -21,7 +21,7 @@ public class SunFlower extends ProductionPlant {
         imageView.setLayoutX(col);
         imageView.setLayoutY(row);
         GameRoot.getInstance().getGamePane().getChildren().add(imageView);
-        imageView.setPreserveRatio(true);
+        imageView.setPreserveRatio(false);
         super.setImageView(imageView);
         GameState.getInstance().getPlants().add(imageView);
         GameState.getInstance().getPlantsHealth().put(imageView, 5);

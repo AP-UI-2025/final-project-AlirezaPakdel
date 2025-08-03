@@ -158,12 +158,12 @@ public class WarriorPlant extends Plant {
             movePea.setCycleCount(Timeline.INDEFINITE);
             movePea.play();
         } else if (bulletType==BulletType.Smoke) {
-            Image peaImg = new Image(getClass().getResource("/images/smokePea.png").toExternalForm());
+            Image peaImg = new Image(getClass().getResource("/images/puff.png").toExternalForm());
             ImageView pea = new ImageView(peaImg);
             pea.setFitWidth(20);
             pea.setFitHeight(20);
             pea.setLayoutX(getCol()+5);
-            pea.setLayoutY(getRow() - 15);
+            pea.setLayoutY(getRow() );
             GameRoot.getInstance().getGamePane().getChildren().add(pea);
 
             final boolean[] hit = {false};
@@ -183,13 +183,12 @@ public class WarriorPlant extends Plant {
                         hp--;
 
                         if (hp <= 0) {
+                            GameState.getInstance().getZombiesClass().get(zombie).die();
                             GameRoot.getInstance().getGamePane().getChildren().remove(zombie);
                             GameState.getInstance().getZombies().remove(zombie);
                         } else {
                             GameState.getInstance().getZombiesHealth().put(zombie, hp);
                         }
-                        GameRoot.getInstance().getGamePane().getChildren().remove(pea);
-
 
                         return;
                     }

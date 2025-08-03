@@ -20,8 +20,8 @@ public class PuffShroom extends WarriorPlant {
         imageView.setFitHeight(70);
         imageView.setFitWidth(60);
         imageView.setPreserveRatio(true);
-        imageView.setLayoutX(col);
-        imageView.setLayoutY(row);
+        imageView.setLayoutX(col-5);
+        imageView.setLayoutY(row-5);
         super.setImageView(imageView);
         GameState.getInstance().getPlants().add(imageView);
         GameState.getInstance().getPlantsHealth().put(imageView, 5);
