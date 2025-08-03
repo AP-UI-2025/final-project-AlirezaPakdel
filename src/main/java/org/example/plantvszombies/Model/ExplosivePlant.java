@@ -53,7 +53,9 @@ public class ExplosivePlant extends Plant {
         }
 
         if (destructionType==DestructionType.SquareIce) {
-
+            for (ImageView zombieView : GameState.getInstance().getZombies()) {
+                GameState.getInstance().getZombiesClass().get(zombieView).getIce();
+            }
         }
 
     }
