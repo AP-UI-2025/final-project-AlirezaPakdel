@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="gamePane" xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.plantvszombies.Controller.NightLevelTwoController" prefWidth="1200" prefHeight="800">
+    <ImageView fx:id="background" fitWidth="1200" fitHeight="800" />
+</Pane>
