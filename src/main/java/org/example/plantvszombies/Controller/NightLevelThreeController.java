@@ -57,10 +57,9 @@ public class NightLevelThreeController implements Initializable {
         GameState.NewGameState();
         GameRoot.getInstance().setGamePane(gamePane);
 
-        Label waveLabel = new Label("Remaining Waves : 1");
         waveLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         waveLabel.setTextFill(Color.WHITE);
-        waveLabel.setText("Remaining Waves : 2");
+        waveLabel.setText("Remaining Waves : 3");
         waveLabel.setLayoutX(900);
         waveLabel.setLayoutY(40);
 

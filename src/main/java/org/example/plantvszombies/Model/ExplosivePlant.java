@@ -60,7 +60,7 @@ public class ExplosivePlant extends Plant {
             }
         }
 
-        if (destructionType==DestructionType.liner) {
+        if (destructionType==DestructionType.AllInFire) {
             for (ImageView zombieView : GameState.getInstance().getZombies()) {
                 GameState.getInstance().getZombiesClass().get(zombieView).getBorn();
             }

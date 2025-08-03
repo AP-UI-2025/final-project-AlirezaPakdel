@@ -11,7 +11,7 @@ import org.example.plantvszombies.Model.Game.GameRoot;
 
 public class DoomShroom extends ExplosivePlant {
     public DoomShroom(double row, double col , int x, int y) {
-        super(125, "DoomShroom", 45, 45, DestructionType.liner, x, y);
+        super(125, "DoomShroom", 45, 45, DestructionType.AllInFire, x, y);
         Image image = new Image(getClass().getResource("/images/doom-shroom-pvz.gif").toExternalForm());
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(80);
