@@ -108,17 +108,17 @@ public class LevelThreeController implements Initializable {
 
         Image cherryBombImage = new Image(getClass().getResource("/images/Gilas.png").toExternalForm());
         ImageView cherryBombIcon = new ImageView(cherryBombImage);
-        snowPeaIcon.setFitWidth(50);
-        snowPeaIcon.setFitHeight(70);
-        snowPeaIcon.setOnMouseClicked(e -> {
+        cherryBombIcon.setFitWidth(50);
+        cherryBombIcon.setFitHeight(70);
+        cherryBombIcon.setOnMouseClicked(e -> {
             selectedPlant = PlantType.CHERRYBOMB;
         });
 
         Image wallNutImage = new Image(getClass().getResource("/images/wallnutCart.png").toExternalForm());
         ImageView wallNutIcon = new ImageView(wallNutImage);
-        snowPeaIcon.setFitWidth(50);
-        snowPeaIcon.setFitHeight(70);
-        snowPeaIcon.setOnMouseClicked(e -> {
+        wallNutIcon.setFitWidth(50);
+        wallNutIcon.setFitHeight(70);
+        wallNutIcon.setOnMouseClicked(e -> {
             selectedPlant = PlantType.WALLNUT;
         });
 

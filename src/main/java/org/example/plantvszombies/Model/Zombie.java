@@ -85,7 +85,7 @@ public class Zombie {
             imageView.setLayoutX(imageView.getLayoutX() - speed);
         }
 
-        if ( imageView.getLayoutX() + 950 < 0) {
+        if ( imageView.getLayoutX()  < 150) {
             if (!hasReachedHouse) {
                 hasReachedHouse = true;
                 if (!GameState.isIsGameOver()) {

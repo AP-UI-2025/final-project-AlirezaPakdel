@@ -17,7 +17,7 @@ public class ConeHeadZombie extends ResistantZombie {
         imageView.setFitHeight(140);
         imageView.setFitWidth(130);
         imageView.setPreserveRatio(true);
-        imageView.setX(1100);
+        imageView.setLayoutX(1100);
         //imageView.setY(200);
         imageView.setLayoutY(y);
         super.setImageView(imageView);

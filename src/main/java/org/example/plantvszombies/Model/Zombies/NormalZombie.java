@@ -17,7 +17,7 @@ public class NormalZombie extends ResistantZombie {
         imageView.setFitHeight(120);
         imageView.setFitWidth(110);
         imageView.setPreserveRatio(true);
-        imageView.setX(1100);
+        imageView.setLayoutX(1100);
         //imageView.setY(200);
         imageView.setLayoutY(y);
         super.setImageView(imageView);
