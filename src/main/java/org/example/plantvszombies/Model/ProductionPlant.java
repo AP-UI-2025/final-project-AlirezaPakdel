@@ -16,7 +16,7 @@ public class ProductionPlant extends Plant{
 
 
     public void produce() {
-        Sun sun = new Sun(getRow(), getCol());
+        Sun sun = new Sun(getRow(), getCol() , getDestructionRate());
 
 
         javafx.animation.Timeline removeTimeline = new javafx.animation.Timeline(new javafx.animation.KeyFrame(Duration.seconds(5), e -> {

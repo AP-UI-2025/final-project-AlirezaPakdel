@@ -10,10 +10,12 @@ import org.example.plantvszombies.Model.Game.GameState;
 public class Sun {
     private final ImageView imageView;
     private final double row, col;
+    private int value;
 
-    public Sun(double row, double col) {
+    public Sun(double row, double col , int value) {
         this.row = row;
         this.col = col;
+        this.value = value;
 
         Image image = new Image(getClass().getResource("/images/sun.png").toExternalForm());
         imageView = new ImageView(image);
@@ -25,7 +27,7 @@ public class Sun {
         GameRoot.getInstance().getGamePane().getChildren().add(imageView);
 
         imageView.setOnMouseClicked(e -> {
-            GameState.getInstance().addSun(25);
+            GameState.getInstance().addSun(value);
             GameRoot.getInstance().getGamePane().getChildren().remove(imageView);
             GameRoot.getInstance().loadSunNum();
         });
