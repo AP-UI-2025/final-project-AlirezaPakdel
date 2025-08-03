@@ -12,11 +12,11 @@ import org.example.plantvszombies.Model.ProductionPlant;
 
 public class SunShroom extends ProductionPlant {
     public SunShroom(double row, double col , int x , int y) {
-        super(25, "SunShroom", 10, 25, x, y);
+        super(25, "SunShroom", 10, 15, x, y);
         Image image = new Image(getClass().getResource("/images/sun_Shroom.gif").toExternalForm());
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(70);
-        imageView.setFitWidth(60);
+        imageView.setFitHeight(60);
+        imageView.setFitWidth(50);
         imageView.setLayoutX(col);
         imageView.setLayoutY(row);
         GameRoot.getInstance().getGamePane().getChildren().add(imageView);
@@ -29,6 +29,10 @@ public class SunShroom extends ProductionPlant {
         startProduction();
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(30), e -> {
             super.setDestructionRate(25);
+            imageView.setFitHeight(70);
+            imageView.setFitWidth(60);
+            imageView.setPreserveRatio(false);
+
         }));
         timeline.play();
     }
