@@ -1,5 +1,5 @@
 package org.example.plantvszombies.Model;
 
 public enum BulletType {
-    Normal,Snowy,Smoke
+    Normal,Snowy,Smoke,Fume
 }

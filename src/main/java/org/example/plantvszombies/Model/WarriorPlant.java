@@ -71,7 +71,8 @@ public class WarriorPlant extends Plant {
                         GameRoot.getInstance().getGamePane().getChildren().remove(pea);
 
                         int hp = GameState.getInstance().getZombiesHealth().get(zombie);
-                        hp--;
+                        hp=hp-getAttackPower();
+
 
                         if (hp <= 0) {
                             GameState.getInstance().getZombiesClass().get(zombie).die();
@@ -142,7 +143,8 @@ public class WarriorPlant extends Plant {
 
 
                         int hp = GameState.getInstance().getZombiesHealth().get(zombie);
-                        hp--;
+                        hp=hp-getAttackPower();
+
 
                         if (hp <= 0) {
                             GameRoot.getInstance().getGamePane().getChildren().remove(zombie);
@@ -180,7 +182,8 @@ public class WarriorPlant extends Plant {
                         GameRoot.getInstance().getGamePane().getChildren().remove(pea);
 
                         int hp = GameState.getInstance().getZombiesHealth().get(zombie);
-                        hp--;
+                        hp=hp-getAttackPower();
+
 
                         if (hp <= 0) {
                             GameState.getInstance().getZombiesClass().get(zombie).die();
@@ -201,6 +204,60 @@ public class WarriorPlant extends Plant {
             movePea.play();
             super.getAllTimelines().add(movePea);
             TimelineManager.getInstance().add(movePea);
+        }else if(bulletType==BulletType.Fume){
+            Image peaImg = new Image(getClass().getResource("/images/fume.png").toExternalForm());
+            ImageView pea = new ImageView(peaImg);
+            pea.setFitWidth(100);
+            pea.setFitHeight(50);
+            pea.setLayoutX(getCol()+35);
+            pea.setLayoutY(getRow());
+            GameRoot.getInstance().getGamePane().getChildren().add(pea);
+
+            final boolean[] hit = {false};
+            Timeline movePea = new Timeline(new KeyFrame(Duration.millis(20), e -> {
+                if(hit[0]){
+                    return;
+                }
+
+                pea.setLayoutX(pea.getLayoutX() + 5);
+
+                for (ImageView zombie : GameState.getInstance().getZombies()) {
+                    if (pea.getBoundsInParent().intersects(zombie.getBoundsInParent())) {
+                        hit[0] = true;
+                        GameRoot.getInstance().getGamePane().getChildren().remove(pea);
+
+                        if (GameState.getInstance().getScreenDoorZombiesHealth().containsKey(zombie)) {
+                            int hp = GameState.getInstance().getScreenDoorZombiesHealth().get(zombie);
+                            hp = hp - getAttackPower();
+                            if (hp <= 0) {
+                                GameState.getInstance().getZombiesClass().get(zombie).die();
+                                GameRoot.getInstance().getGamePane().getChildren().remove(zombie);
+                                GameState.getInstance().getZombies().remove(zombie);
+                            } else {
+                                GameState.getInstance().getZombiesHealth().put(zombie, hp);
+                                GameState.getInstance().getScreenDoorZombiesHealth().put(zombie, hp);
+                            }
+                        }else {
+                            int hp = GameState.getInstance().getZombiesHealth().get(zombie);
+                            hp = hp - getAttackPower();
+
+                            if (hp <= 0) {
+                                GameState.getInstance().getZombiesClass().get(zombie).die();
+                                GameRoot.getInstance().getGamePane().getChildren().remove(zombie);
+                                GameState.getInstance().getZombies().remove(zombie);
+                            } else {
+                                GameState.getInstance().getZombiesHealth().put(zombie, hp);
+                            }
+                        }
+
+                        return;
+                    }
+                }
+            }));
+
+            movePea.setCycleCount(Timeline.INDEFINITE);
+            movePea.play();
+
         }
     }
 

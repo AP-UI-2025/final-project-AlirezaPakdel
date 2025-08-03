@@ -8,7 +8,7 @@ import org.example.plantvszombies.Model.ResistantZombie;
 
 public class ConeHeadZombie extends ResistantZombie {
     public ConeHeadZombie(double y) {
-        super(10, 2, 1);
+        super(100, 2, 1);
         Image image = new Image(getClass().getResource("/images/coneheadZombie.gif").toExternalForm());
         //Image imageEat = new Image(getClass().getResource("/images/NormalEat.gif").toExternalForm());
         //super.setEatImage(imageEat);

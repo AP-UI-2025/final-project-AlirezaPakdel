@@ -8,11 +8,11 @@ import org.example.plantvszombies.Model.ResistantZombie;
 
 public class ScreenDoorZombie extends ResistantZombie {
     public ScreenDoorZombie(double y) {
-        super(10, 2, 2);
+        super(110, 2, 2);
         Image image = new Image(getClass().getResource("/images/screenDoor.png").toExternalForm());
         super.setImage(image);
         ImageView imageView = new ImageView(image);
-        GameState.getInstance().getScreenDoorZombiesHealth().put(imageView , 5);
+        GameState.getInstance().getScreenDoorZombiesHealth().put(imageView , 50);
         imageView.setFitHeight(120);
         imageView.setFitWidth(110);
         imageView.setPreserveRatio(true);
