@@ -19,7 +19,7 @@ public class SunFlower extends ProductionPlant {
         imageView.setFitHeight(70);
         imageView.setFitWidth(60);
         imageView.setLayoutX(col);
-        imageView.setLayoutY(row);
+        imageView.setLayoutY(row-5);
         GameRoot.getInstance().getGamePane().getChildren().add(imageView);
         imageView.setPreserveRatio(false);
         super.setImageView(imageView);
