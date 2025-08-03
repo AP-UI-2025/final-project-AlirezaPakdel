@@ -14,7 +14,7 @@ import org.example.plantvszombies.Model.WarriorPlant;
 public class FumeShroom extends WarriorPlant {
     public FumeShroom(double row, double col , int x , int y) {
         super(75, "FumeShroom", 15, 7, BulletType.Fume, x, y);
-        Image image = new Image(getClass().getResource("/images/peaShooter.gif").toExternalForm());
+        Image image = new Image(getClass().getResource("/images/Fume_ShroomRelax.gif").toExternalForm());
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(70);
         imageView.setFitWidth(60);
