@@ -38,7 +38,7 @@ public class ExplosivePlant extends Plant {
             double zy = zombieView.getLayoutY() + zombieView.getBoundsInParent().getHeight() / 2;
             if (zx >= minX && zx <= maxX && zy >= minY && zy <= maxY) {
                 imageViews.add(zombieView);
-                GameState.getInstance().getZombiesClass().get(zombieView).die();
+                GameState.getInstance().getZombiesClass().get(zombieView).getBorn();
             }
         }
         GameRoot.getInstance().getGamePane().getChildren().remove(this.getImageView());

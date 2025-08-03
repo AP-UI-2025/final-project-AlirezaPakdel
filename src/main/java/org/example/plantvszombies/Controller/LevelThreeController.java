@@ -302,7 +302,7 @@ public class LevelThreeController implements Initializable {
     private void startWaves() {
         Timeline waveTimeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
             if (currentWave < zombiesPerWave.length) {
-                spawnWave(zombiesPerWave[currentWave]);
+                spawnWave(currentWave);
             } else {
                 spawnFinalWave(currentWave);
             }

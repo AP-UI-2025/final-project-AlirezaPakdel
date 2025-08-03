@@ -28,6 +28,15 @@ public class Zombie {
     private boolean hasReachedHouse = false;
     private Image image;
     private Image eatImage;
+    private Image bourn = new Image(HelloApplication.class.getResourceAsStream("/images/born.gif"));
+
+    public Image getBourn() {
+        return bourn;
+    }
+
+    public void setBourn(Image bourn) {
+        this.bourn = bourn;
+    }
 
     public Timeline getMoveTimeline() {
         return moveTimeline;
@@ -166,6 +175,12 @@ public class Zombie {
         GameState.getInstance().getZombiesHealth().remove(imageView);
         TimelineManager.getInstance().getTimelines().remove(moveTimeline);
         moveTimeline.stop();
+    }
+    public void getBorn(){
+        moveTimeline.stop();
+        imageView.setImage(bourn);
+        Timeline born = new Timeline(new KeyFrame(Duration.seconds(1.5) , event -> die()));
+        born.play();
     }
     public ImageView getImageView() {
         return imageView;
