@@ -21,33 +21,41 @@ public class ExplosivePlant extends Plant {
     }
 
     public void Explosion() {
-        List<ImageView> imageViews = new ArrayList<ImageView>();
 
-        double centerX = getCol() + this.getImageView().getBoundsInParent().getWidth() / 2;
-        double centerY = getRow() + this.getImageView().getBoundsInParent().getHeight() / 2;
+        if (destructionType==DestructionType.Square) {
+            List<ImageView> imageViews = new ArrayList<ImageView>();
 
-        double minX = centerX - GameRoot.getInstance().getTILE_WIDTH()*1.5;
-        double maxX = centerX + GameRoot.getInstance().getTILE_WIDTH()*1.5;
-        double minY = centerY - GameRoot.getInstance().getTILE_HEIGHT()*1.5;
-        double maxY = centerY + GameRoot.getInstance().getTILE_HEIGHT()*1.5;
+            double centerX = getCol() + this.getImageView().getBoundsInParent().getWidth() / 2;
+            double centerY = getRow() + this.getImageView().getBoundsInParent().getHeight() / 2;
 
-        int plantX = getX();
-        int plantY = getY();
-        for (ImageView zombieView : GameState.getInstance().getZombies()) {
-            double zx = zombieView.getLayoutX() + zombieView.getBoundsInParent().getWidth() / 2;
-            double zy = zombieView.getLayoutY() + zombieView.getBoundsInParent().getHeight() / 2;
-            if (zx >= minX && zx <= maxX && zy >= minY && zy <= maxY) {
-                imageViews.add(zombieView);
-                GameState.getInstance().getZombiesClass().get(zombieView).getBorn();
+            double minX = centerX - GameRoot.getInstance().getTILE_WIDTH() * 1.5;
+            double maxX = centerX + GameRoot.getInstance().getTILE_WIDTH() * 1.5;
+            double minY = centerY - GameRoot.getInstance().getTILE_HEIGHT() * 1.5;
+            double maxY = centerY + GameRoot.getInstance().getTILE_HEIGHT() * 1.5;
+
+            int plantX = getX();
+            int plantY = getY();
+            for (ImageView zombieView : GameState.getInstance().getZombies()) {
+                double zx = zombieView.getLayoutX() + zombieView.getBoundsInParent().getWidth() / 2;
+                double zy = zombieView.getLayoutY() + zombieView.getBoundsInParent().getHeight() / 2;
+                if (zx >= minX && zx <= maxX && zy >= minY && zy <= maxY) {
+                    imageViews.add(zombieView);
+                    GameState.getInstance().getZombiesClass().get(zombieView).getBorn();
+                }
+            }
+            GameRoot.getInstance().getGamePane().getChildren().remove(this.getImageView());
+            GameRoot.getInstance().setPlantPlaced(plantX, plantY, false);
+
+
+            for (ImageView zombieView : imageViews) {
+                GameState.getInstance().getZombies().remove(zombieView);
             }
         }
-        GameRoot.getInstance().getGamePane().getChildren().remove(this.getImageView());
-        GameRoot.getInstance().setPlantPlaced(plantX, plantY, false);
 
+        if (destructionType==DestructionType.SquareIce) {
 
-        for (ImageView zombieView : imageViews) {
-            GameState.getInstance().getZombies().remove(zombieView);
         }
+
     }
 
 

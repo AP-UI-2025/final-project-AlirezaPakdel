@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Stop;
@@ -181,6 +182,20 @@ public class Zombie {
         imageView.setImage(bourn);
         Timeline born = new Timeline(new KeyFrame(Duration.seconds(1.5) , event -> die()));
         born.play();
+    }
+    public void getIce(){
+        moveTimeline.stop();
+
+        ColorAdjust blueEffect = new ColorAdjust();
+        blueEffect.setHue(-0.5);
+        getImageView().setEffect(blueEffect);
+        Timeline removeEffect = new Timeline(
+                new KeyFrame(Duration.seconds(5), ee -> getImageView().setEffect(null))
+        );
+        removeEffect.play();
+
+        Timeline Ice = new Timeline(new KeyFrame(Duration.seconds(5) , event -> moveTimeline.play()));
+        Ice.play();
     }
     public ImageView getImageView() {
         return imageView;
