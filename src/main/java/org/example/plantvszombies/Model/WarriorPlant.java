@@ -181,16 +181,18 @@ public class WarriorPlant extends Plant {
                         hit[0] = true;
                         GameRoot.getInstance().getGamePane().getChildren().remove(pea);
 
-                        int hp = GameState.getInstance().getZombiesHealth().get(zombie);
-                        hp=hp-getAttackPower();
+                        if (GameState.getInstance().getZombiesHealth().get(zombie)!=null) {
+                            int hp = GameState.getInstance().getZombiesHealth().get(zombie);
+                            hp = hp - getAttackPower();
 
 
-                        if (hp <= 0) {
-                            GameState.getInstance().getZombiesClass().get(zombie).die();
-                            GameRoot.getInstance().getGamePane().getChildren().remove(zombie);
-                            GameState.getInstance().getZombies().remove(zombie);
-                        } else {
-                            GameState.getInstance().getZombiesHealth().put(zombie, hp);
+                            if (hp <= 0) {
+                                GameState.getInstance().getZombiesClass().get(zombie).die();
+                                GameRoot.getInstance().getGamePane().getChildren().remove(zombie);
+                                GameState.getInstance().getZombies().remove(zombie);
+                            } else {
+                                GameState.getInstance().getZombiesHealth().put(zombie, hp);
+                            }
                         }
 
                         return;
@@ -238,15 +240,18 @@ public class WarriorPlant extends Plant {
                                 GameState.getInstance().getScreenDoorZombiesHealth().put(zombie, hp);
                             }
                         }else {
-                            int hp = GameState.getInstance().getZombiesHealth().get(zombie);
-                            hp = hp - getAttackPower();
+                            if (GameState.getInstance().getZombiesHealth().get(zombie)!=null) {
 
-                            if (hp <= 0) {
-                                GameState.getInstance().getZombiesClass().get(zombie).die();
-                                GameRoot.getInstance().getGamePane().getChildren().remove(zombie);
-                                GameState.getInstance().getZombies().remove(zombie);
-                            } else {
-                                GameState.getInstance().getZombiesHealth().put(zombie, hp);
+                                int hp = GameState.getInstance().getZombiesHealth().get(zombie);
+                                hp = hp - getAttackPower();
+
+                                if (hp <= 0) {
+                                    GameState.getInstance().getZombiesClass().get(zombie).die();
+                                    GameRoot.getInstance().getGamePane().getChildren().remove(zombie);
+                                    GameState.getInstance().getZombies().remove(zombie);
+                                } else {
+                                    GameState.getInstance().getZombiesHealth().put(zombie, hp);
+                                }
                             }
                         }
 

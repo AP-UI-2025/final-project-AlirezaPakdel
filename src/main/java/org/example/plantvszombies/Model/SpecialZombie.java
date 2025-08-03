@@ -21,10 +21,12 @@ public class SpecialZombie extends Zombie{
     }
 
     public void UseAbility() {
-        if (GameState.getInstance().getZombiesHealth().get(super.getImageView())<=100){
-            if (super.getImageView().getImage()!=Angry){
-                super.getImageView().setImage(Angry);
-                setSpeed(5);
+        if (GameState.getInstance().getZombiesHealth().get(super.getImageView())!=null) {
+            if (GameState.getInstance().getZombiesHealth().get(super.getImageView()) <= 100) {
+                if (super.getImageView().getImage() != Angry) {
+                    super.getImageView().setImage(Angry);
+                    setSpeed(5);
+                }
             }
         }
     }

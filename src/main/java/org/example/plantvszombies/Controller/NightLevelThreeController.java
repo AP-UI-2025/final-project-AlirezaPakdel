@@ -196,6 +196,9 @@ public class NightLevelThreeController implements Initializable {
                                     GameRoot.getInstance().loadSunNum();
                                     GameState.getInstance().getPlantsClass().put(doomShroom.getImageView() , doomShroom);
                                     GameRoot.getInstance().setPlantPlaced(finalRow, finalCol, true);
+                                    break;
+                                }else{
+                                    break;
                                 }
                             case SCAREDY:
                                 if (GameState.getInstance().getSunPoints() >= 25) {
@@ -204,6 +207,9 @@ public class NightLevelThreeController implements Initializable {
                                     GameRoot.getInstance().loadSunNum();
                                     GameState.getInstance().getPlantsClass().put(scaredyShroom.getImageView(), scaredyShroom);
                                     GameRoot.getInstance().setPlantPlaced(finalRow, finalCol, true);
+                                    break;
+                                }else{
+                                    break;
                                 }
                         }
                     }

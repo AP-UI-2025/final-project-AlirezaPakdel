@@ -14,8 +14,8 @@ public class DoomShroom extends ExplosivePlant {
         super(125, "DoomShroom", 45, 45, DestructionType.liner, x, y);
         Image image = new Image(getClass().getResource("/images/doom-shroom-pvz.gif").toExternalForm());
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(70);
-        imageView.setFitWidth(60);
+        imageView.setFitHeight(80);
+        imageView.setFitWidth(90);
         imageView.setPreserveRatio(false);
         imageView.setLayoutX(col);
         imageView.setLayoutY(row);

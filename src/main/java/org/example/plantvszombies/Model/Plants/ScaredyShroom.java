@@ -17,8 +17,8 @@ public class ScaredyShroom extends WarriorPlant {
         Image image = new Image(getClass().getResource("/images/scaredy-shroom.gif").toExternalForm());
         Image image2 = new Image(getClass().getResource("/images/scaredy-shroom-hide.gif").toExternalForm());
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(70);
-        imageView.setFitWidth(60);
+        imageView.setFitHeight(60);
+        imageView.setFitWidth(50);
         imageView.setPreserveRatio(true);
         imageView.setLayoutX(col);
         imageView.setLayoutY(row);
