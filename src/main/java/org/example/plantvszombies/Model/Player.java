@@ -77,7 +77,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return "UserName : " + getUserName() +  " win : " + getLevel() + "Loss : " + getLoss() +  " Score : " + getScore()  ;
+        return "UserName : " + getUserName() +  " win : " + getWin() + "Loss : " + getLoss() +  " Score : " + getScore()  ;
     }
 
 

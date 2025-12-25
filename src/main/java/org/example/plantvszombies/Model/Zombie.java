@@ -1,9 +1,59 @@
 package org.example.plantvszombies.Model;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Stop;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.example.plantvszombies.Controller.HelloController;
+import org.example.plantvszombies.Controller.PlayerController;
+import org.example.plantvszombies.HelloApplication;
+import org.example.plantvszombies.Model.Game.GameRoot;
+import org.example.plantvszombies.Model.Game.GameState;
+import org.example.plantvszombies.Model.Game.TimelineManager;
+
+import java.io.IOException;
+
 public class Zombie {
     private int health;
     private int speed;
     private int damage;
+    private ImageView imageView;
+    private Timeline moveTimeline;
+    private boolean hasReachedHouse = false;
+    private Image image;
+    private Image eatImage;
+    private Image bourn = new Image(HelloApplication.class.getResourceAsStream("/images/born.gif"));
+
+    public Image getBourn() {
+        return bourn;
+    }
+
+    public void setBourn(Image bourn) {
+        this.bourn = bourn;
+    }
+
+    public Timeline getMoveTimeline() {
+        return moveTimeline;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public Image getEatImage() {
+        return eatImage;
+    }
+
+    public void setEatImage(Image eatImage) {
+        this.eatImage = eatImage;
+    }
 
     public Zombie(int health, int speed, int damage) {
         this.health = health;
@@ -11,10 +61,149 @@ public class Zombie {
         this.damage = damage;
     }
 
-    public static void moveZombie() {}
+    public void startMoving() {
+        moveTimeline = new Timeline(new KeyFrame(Duration.millis(100), e -> moveZombie()));
+        moveTimeline.setCycleCount(Timeline.INDEFINITE);
+        moveTimeline.play();
+        TimelineManager.getInstance().add(moveTimeline);
+    }
 
-    public static void eatPlant(){}
+    private void moveZombie() {
 
+        Integer zombieHP = GameState.getInstance().getZombiesHealth().get(imageView);
+        if (zombieHP == null || zombieHP <= 0) {
+            die();
+            return;
+        }
+
+        for (LawnMower mower : GameRoot.getInstance().mowers) {
+            mower.checkCollisionWithZombie(imageView);
+        }
+
+        boolean isEating = false;
+        for (ImageView image : GameState.getInstance().getPlants()) {
+            if (imageView.getBoundsInParent().intersects(image.getBoundsInParent())) {
+                isEating = true;
+                moveTimeline.stop();
+                setGifImageEat();
+                Timeline eat = new Timeline(new KeyFrame(Duration.seconds(speed) , event -> eatPlant(image)));
+                eat.setCycleCount(Timeline.INDEFINITE);
+                eat.play();
+            }
+        }
+        if (!isEating) {
+            imageView.setLayoutX(imageView.getLayoutX() - speed);
+        }
+
+        if ( imageView.getLayoutX()  < 150) {
+            if (!hasReachedHouse) {
+                hasReachedHouse = true;
+                if (!GameState.isIsGameOver()) {
+                    GameState.getInstance().setIsGameOver(true);
+                    System.out.println("Zombie reached the house. Game Over!" + imageView.getLayoutX());
+                    TimelineManager.getInstance().stopAll();
+                    PlayerController.increaseLoses(HelloController.logInPlayer.getUserName());
+                    HelloController.logInPlayer = PlayerController.LogIn(HelloController.logInPlayer.getUserName(), HelloController.logInPlayer.getPassword());
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Zombie");
+                    alert.setHeaderText("Zombie reached!");
+                    alert.setContentText("You Dead");
+                    alert.show();
+
+                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("HomePageView.fxml"));
+                    Scene scene;
+                    try {
+                        scene = new Scene(loader.load());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Stage stage = (Stage) GameRoot.getInstance().getGamePane().getScene().getWindow();
+
+                    if (scene != null) {
+                        stage.setScene(scene);
+                        stage.show();
+                    }
+                }
+            }
+        }
+    }
+
+    private void setGifImageEat() {
+        if (eatImage != null && imageView.getImage()!=eatImage) {
+            imageView.setImage(eatImage);
+        }
+    }
+
+    private void eatPlant(ImageView plant) {
+        Integer currentHP = GameState.getInstance().getPlantsHealth().get(plant);
+
+        if (currentHP == null) {
+            setGifImage();
+            moveTimeline.play();
+            return;
+        }
+            int newHP = currentHP - damage;
+            GameState.getInstance().getPlantsHealth().put(plant, newHP);
+
+            if (newHP <= 0) {
+                for (Timeline ti : GameState.getInstance().getPlantsClass().get(plant).getAllTimelines() ){
+                    ti.stop();
+                }
+                setGifImage();
+                GameRoot.getInstance().setPlantPlaced(GameState.getInstance().getPlantsClass().get(plant).getX() , GameState.getInstance().getPlantsClass().get(plant).getY() , false);
+                GameState.getInstance().getPlants().remove(plant);
+                GameState.getInstance().getPlantsClass().remove(plant);
+                GameState.getInstance().getPlantsHealth().remove(plant);
+                GameRoot.getInstance().getGamePane().getChildren().remove(plant);
+                moveTimeline.play();
+            }
+
+    }
+
+    private void setGifImage() {
+        if (imageView.getImage() != image){
+            imageView.setImage(image);
+        }
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public void die() {
+        GameRoot.getInstance().getGamePane().getChildren().remove(imageView);
+        GameState.getInstance().getZombiesHealth().remove(imageView);
+        TimelineManager.getInstance().getTimelines().remove(moveTimeline);
+        moveTimeline.stop();
+    }
+    public void getBorn(){
+        moveTimeline.stop();
+        imageView.setImage(bourn);
+        Timeline born = new Timeline(new KeyFrame(Duration.seconds(1.5) , event -> die()));
+        born.play();
+    }
+    public void getIce(){
+        moveTimeline.stop();
+
+        ColorAdjust blueEffect = new ColorAdjust();
+        blueEffect.setHue(-0.5);
+        getImageView().setEffect(blueEffect);
+        Timeline removeEffect = new Timeline(
+                new KeyFrame(Duration.seconds(5), ee -> getImageView().setEffect(null))
+        );
+        removeEffect.play();
+
+        Timeline Ice = new Timeline(new KeyFrame(Duration.seconds(5) , event -> moveTimeline.play()));
+        Ice.play();
+    }
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
 
     public int getHealth() {
         return health;

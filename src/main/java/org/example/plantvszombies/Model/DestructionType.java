@@ -1,5 +1,5 @@
 package org.example.plantvszombies.Model;
 
 public enum DestructionType {
-    Square,liner,Point
+    Square,liner,Point,SquareIce,AllInFire
 }

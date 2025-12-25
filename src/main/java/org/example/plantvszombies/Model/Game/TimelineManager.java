@@ -1,4 +1,4 @@
-package org.example.plantvszombies.Model;
+package org.example.plantvszombies.Model.Game;
 
 import javafx.animation.Timeline;
 

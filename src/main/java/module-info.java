@@ -12,4 +12,6 @@ module org.example.plantvszombies {
     opens org.example.plantvszombies.Model to javafx.fxml;
     exports org.example.plantvszombies.Controller;
     opens org.example.plantvszombies.Controller to javafx.fxml;
+    exports org.example.plantvszombies.Model.Game;
+    opens org.example.plantvszombies.Model.Game to javafx.fxml;
 }
